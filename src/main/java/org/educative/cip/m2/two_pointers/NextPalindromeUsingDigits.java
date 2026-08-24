@@ -58,20 +58,24 @@ public class NextPalindromeUsingDigits {
 
     static class Solution {
         public static boolean findNextPermutation(List<Character> digits) {
+            // Start from the end of leftHalf and move left to find the first index i where digits[i] < digits[i + 1].
             int i = digits.size() - 2;
             while (i >= 0 && digits.get(i) >= digits.get(i + 1)) {
                 i--;
             }
+            // If no such index exists, the digits are in descending order, and we cannot find a next permutation.
             if (i == -1) {
                 return false;
             }
-
+            // Find the largest index j greater than i such that digits[j] > digits[i].
             int j = digits.size() - 1;
             while (digits.get(j) <= digits.get(i)) {
                 j--;
             }
 
+            // Swap the values at indices i and j.
             Collections.swap(digits, i, j);
+            // Reverse the sublist from i + 1 to the end of the list.
             Collections.reverse(digits.subList(i + 1, digits.size()));
             return true;
         }
@@ -99,10 +103,10 @@ public class NextPalindromeUsingDigits {
             }
 
             if (n % 2 == 0) {
-                // even length palindrome
+                // even length palindrome - mirror the left half to form the right half.
                 nextPalindrome.append(new StringBuilder(nextPalindrome).reverse());
             } else {
-                // odd length palindrome
+                // odd length palindrome - mirror the left half and include the middle character.
                 nextPalindrome.append(numStr.charAt(halfLength));
                 nextPalindrome.append(new StringBuilder(nextPalindrome.substring(0, halfLength)).reverse());
             }
