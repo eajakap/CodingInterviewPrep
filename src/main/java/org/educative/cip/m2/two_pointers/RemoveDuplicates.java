@@ -1,6 +1,10 @@
 package org.educative.cip.m2.two_pointers;
 
 import java.util.Arrays;
+/*
+ * Time Complexity: O(n) - We traverse the array once to remove duplicates.
+ * Space Complexity: O(1) - We use a constant amount of space for pointers and swaps.
+ */
 
 public class RemoveDuplicates {
     public static int removeDuplicates(int[] nums) {
