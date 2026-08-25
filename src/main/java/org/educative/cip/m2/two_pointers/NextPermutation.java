@@ -1,7 +1,10 @@
 package org.educative.cip.m2.two_pointers;
 
 import java.util.*;
-
+/*
+ * Time Complexity: O(n) - We traverse the array once to find the next permutation.
+ * Space Complexity: O(1) - We use a constant amount of space for pointers and swaps.
+ */
 public class NextPermutation {
     private void swap(int[] nums, int i, int j) {
         int temp = nums[i];
@@ -12,19 +15,21 @@ public class NextPermutation {
     public void nextPermutation(int[] nums) {
         int i = nums.length - 2;
 
+        // Find the first element that is smaller than its next rightmost element from the end
         while (i >= 0 && nums[i + 1] <= nums[i]) {
             i--;
         }
-
+        // If such an element is found, find the first element that is larger than it from the end
         if (i >= 0) {
             int j = nums.length - 1;
             while (nums[j] <= nums[i]) {
                 j--;
             }
-
+            // swap the two elements - pivot and successor
             swap(nums, i, j);
         }
 
+        // Reverse the elements to get the next permutation
         reverse(nums, i + 1, nums.length - 1);
     }
 
