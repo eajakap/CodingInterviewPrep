@@ -17,17 +17,21 @@ public class RotateBox90Degree {
             int emptySlot = n - 1;
             for (int col = n - 1; col >= 0; col--) {
                 if (boxGrid[row][col] == '*') {
+                    // OBSTACLE - reset the emptySlot to the left of the obstacle,
+                    // AS NO STONE CAN FALL THROUGH AN OBSTACLE
                     emptySlot = col - 1;
                 } else if (boxGrid[row][col] == '#') {
+                    // STONE - move the stone to the rightmost empty slot available
                     boxGrid[row][col] = '.';
                     boxGrid[row][emptySlot] = '#';
                     emptySlot--;
                 }
+                // EMPTY SLOT - do nothing, just continue to the next column
             }
         }
 
         char[][] rotated = new char[n][m];
-        for (char[] row : rotated) Arrays.fill(row, '.');
+        for (char[] row : rotated) Arrays.fill(row, '.'); // EMPTY SLOT - fill the rotated array with empty slots
         // Rotate the box 90 degrees clockwise - MAP the elements from the original boxGrid to the new rotated array
         for (int row = 0; row < m; row++) {
             for (int col = 0; col < n; col++) {
