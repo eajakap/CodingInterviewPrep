@@ -2,6 +2,13 @@ package org.educative.cip.m2.two_pointers;
 
 import java.util.*;
 
+/**
+ * Time Complexity: O(n^2), where n is the length of the input array.
+ * We sort the array first (O(n log n)) and then use a two-pointer approach (O(n^2)).
+ * Space Complexity: O(n) for the result list.
+ * Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that
+ * i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+ */
 public class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums); // O(nlogn)
