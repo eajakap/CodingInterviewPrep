@@ -11,7 +11,6 @@ public class RemoveDuplicates {
 
         // Replace this placeholder return statement with your code
         int i = 0;
-        int second = 1;
         for (int j = 1; j < nums.length; j++) {
             if  (nums[i] != nums[j]) {
                 // unique element
