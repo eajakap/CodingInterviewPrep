@@ -2,7 +2,7 @@ package org.educative.cip.m2.two_pointers;
 import java.util.Arrays;
 
 /*
-     * Time Complexity: O(n) - We are reversing the array elements a constant number of times.
+ * Time Complexity: O(n) - We are reversing the array elements a constant number of times.
  * Space Complexity: O(1) - We are modifying the input array in place and not using any additional data structures.
  */
 
