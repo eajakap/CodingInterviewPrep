@@ -7,7 +7,7 @@ package org.educative.cip.m2.two_pointers;
  */
 public class ValidPalindromeII {
 
-    public static boolean isPalindrome(String string) {
+    public static boolean isPalindromeV1(String string) {
 
         // Replace this placeholder return statement with your code
         int left = 0;
@@ -31,7 +31,7 @@ public class ValidPalindromeII {
         return true;
     }
 
-    public static boolean validPalindrome(String s) {
+    public static boolean isPalindrome(String s) {
         int left = 0;
         int right = s.length() - 1;
 
@@ -70,7 +70,6 @@ public class ValidPalindromeII {
         for (String test : testCases) {
             System.out.println("\tString: " + test);
             boolean result = isPalindrome(test);
-//            boolean result = validPalindrome(test);
             System.out.println("\n\tResult: " + result);
             System.out.println(new String(new char[100]).replace('\0', '-'));
         }
