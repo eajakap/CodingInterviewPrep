@@ -71,8 +71,8 @@ public class RotateLinkedListKSteps {
 
         int shift = k;
         if (walked < k) {                    // k >= n, so reduce and redo the gap
-            int n = walked + 1;
-            shift = k % n;
+            int n = walked + 1;            // total number of nodes in the list
+            shift = k % n;                   // shift is now in the range [0, n-1]
             if (shift == 0) return head;     // no mutation has happened yet
             fast = head;
             for (int i = 0; i < shift; i++) {
@@ -103,7 +103,7 @@ public class RotateLinkedListKSteps {
                 Arrays.asList(1, 2)
         );
 
-        int[] ks = {2, 3, 1, 0, 1};
+        int[] ks = {2, 3, 4, 0, 1};
         RotateLinkedListKSteps solution = new RotateLinkedListKSteps();
 
         for (int i = 0; i < inputs.size(); i++) {
