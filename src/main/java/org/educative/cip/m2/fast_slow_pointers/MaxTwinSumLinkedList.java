@@ -171,6 +171,7 @@ public class MaxTwinSumLinkedList {
         Solution.main(args);
         // create a linked list from an array of integers
         LinkedList linkedList = new LinkedList(Arrays.asList(2, 3, 5, 7));
+        int i =1;
         System.out.print((i + 1) + ".\tLinked list: ");
         PrintList.display(linkedList.head);
         System.out.println("Maximum twin sum: " +
