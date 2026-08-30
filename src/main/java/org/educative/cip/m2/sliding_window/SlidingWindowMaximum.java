@@ -5,6 +5,14 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.stream.Stream;
 
+/**
+ * Sliding Window Maximum
+ * Given an array of integers and a window size, find the maximum value in each sliding window.
+ * For example, given the array [1, 3, -1, -3, 5, 3, 6, 7] and a window size of 3,
+ * the maximum values in each sliding window are [3, 3, 5, 5, 6, 7].
+ * Time Complexity: O(n) - We traverse the array once, and each element is added and removed from the deque at most once.
+ * Space Complexity: O(n-w) - The deque can hold at most n-w elements, where w is the window size.
+ */
 public class SlidingWindowMaximum {
 
     // This is Brute Force solution with O(n * w) time complexity,
@@ -49,16 +57,17 @@ public class SlidingWindowMaximum {
 //            System.out.println("\tIn:i = " + i + ", windowIndex = " + currentWindowIndex + ", deque = " + deque + ", result = " + Arrays.toString(result));
             // 1. front has slid out of the window
             if (!deque.isEmpty() && deque.peekFirst() <= i - w) {
-                deque.pollFirst();
+                deque.pollFirst(); // remove the index of the element that is out of the current window
             }
             // 2. anything smaller than nums[i] can never be a max again
             while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
-                deque.pollLast();
+                deque.pollLast(); // remove the index of the element that is smaller than the current element
             }
-            deque.offerLast(i);
+            deque.offerLast(i); // add the index of the current element to the deque
 
             // 3. first full window ends at index w-1
             if (i >= w - 1) {
+                // the first element in the deque is the index of the maximum element in the current window
                 result[i - w + 1] = nums[deque.peekFirst()];
                 currentWindowIndex++;
             }
