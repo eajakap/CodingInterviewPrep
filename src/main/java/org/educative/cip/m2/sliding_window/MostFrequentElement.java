@@ -8,7 +8,7 @@ import java.util.*;
  * Time Complexity: O(n^2) for the brute force method and O(n) for the HashMap method.
  * Space Complexity: O(1) for the brute force method and O(n) for the HashMap method.
  * Time Complexity for maxFrequency method: O(n log n) due to sorting the array.
- * Space Complexity for maxFrequency method: O(1) - We use a constant amount of extra space.
+ * Space Complexity for maxFrequency method: O(log n) - As sort needs O(n log n) space. We also use a constant amount of extra space.
  */
 public class MostFrequentElement {
 
