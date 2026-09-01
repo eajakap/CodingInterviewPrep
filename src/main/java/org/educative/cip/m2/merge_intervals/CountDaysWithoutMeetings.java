@@ -12,7 +12,7 @@ public class CountDaysWithoutMeetings {
 
     static class Solution {
         public int countDays(int days, int[][] meetings) {
-            // Sort the meetings based on their start time to process them in order
+            // Sort the meetings based on their start time to process them in order - O(n log n)
             Arrays.sort(meetings, Comparator.comparingInt(a -> a[0]));
 
             // Initialize a variable with 0 to count the number of days when the employee has meetings scheduled
