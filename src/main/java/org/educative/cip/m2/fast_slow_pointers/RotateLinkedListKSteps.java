@@ -63,12 +63,13 @@ public class RotateLinkedListKSteps {
         // Try to put fast k nodes ahead of head. If the list ends first,
         // the attempt wasn't wasted: we've just counted it, n = walked + 1.
         ListNode fast = head;
-        int walked = 0;
+        int walked = 0; // count of nodes walked by fast pointer
         while (walked < k && fast.next != null) {
             fast = fast.next;
             walked++;
         }
 
+        // If we walked k nodes, fast is now at index k, and slow is at index 0.
         int shift = k;
         if (walked < k) {                    // k >= n, so reduce and redo the gap
             int n = walked + 1;            // total number of nodes in the list
