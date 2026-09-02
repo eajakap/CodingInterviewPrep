@@ -2,7 +2,8 @@ package org.educative.cip.m2.merge_intervals;
 
 import java.util.Arrays;
 
-/*  Time Complexity: O(n log n) - The sorting step takes O(n log n) time, and the merging step takes O(n) time, where n is the number of intervals.
+/*  Time Complexity: O(n log n) - The sorting step takes O(n log n) time, and the merging step takes O(n) time,
+ * where n is the number of intervals.
  *  Space Complexity: O(n) - In the worst case, we may need to store all intervals in the merged array.
 */
 public class MergeIntervals {
@@ -21,16 +22,23 @@ public class MergeIntervals {
 
         // save the first interval
         merged[index] = intervals[0];
+        int prevStart = merged[index][0];
+        int prevEnd = merged[index][1];
 
         // iterate through the intervals
         for (int i = 1; i < intervals.length; i++) {
+            int start = intervals[i][0];
+            int end = intervals[i][1];
             // if the current interval overlaps with the previous interval, merge them
-            if (merged[index][1] >= intervals[i][0]) { // current start interval is greater than or equal to the previous end interval
-                merged[index][1] = Math.max(merged[index][1], intervals[i][1]); // end time of the merged interval is the maximum of the two end times
+            if (start <= prevEnd) { // current start interval is less than or equal to the previous end interval
+                prevEnd = Math.max(prevEnd, end); // end time of the merged interval is the maximum of the two end times
+                merged[index][1] = prevEnd;
             } else {
                 // if they don't overlap, move to the next interval
                 index++;
                 merged[index] = intervals[i];
+                prevStart = merged[index][0];
+                prevEnd = merged[index][1];
             }
         }
 
