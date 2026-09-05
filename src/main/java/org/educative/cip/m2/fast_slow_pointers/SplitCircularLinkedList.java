@@ -123,6 +123,19 @@ public class SplitCircularLinkedList {
         }
     }
 
+    /*
+     * Method to split a circular linked list into two halves.
+     * If the number of nodes is odd, the extra node goes in the first half.
+     * The function returns an array containing the heads of the two halves.
+     * Steps:
+     * 1. Use the slow and fast pointer technique to find the middle of the list.
+     *    slow will point to the last node of the first half,
+     *    and fast will point to the last node of the list.
+     * 2. Split the list into two halves and make both halves circular.
+     * 2. First Half circular head --> slow. Change slow.next to head to make it circular.
+     * 2. Second Half circular slow.next --> head. Change fast.next to slow.next to make it circular.
+     * 3. Return the heads of the two halves.
+     */
     static class Solution {
         // Method to split the circular linked list
         // Method to split a circular linked list into two halves
