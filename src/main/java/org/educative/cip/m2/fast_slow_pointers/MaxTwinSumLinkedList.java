@@ -122,9 +122,11 @@ public class MaxTwinSumLinkedList {
 
             for (int i = 0; i < lists.size(); ++i) {
                 LinkedList inputLinkedList = new LinkedList(lists.get(i));
-                System.out.print((i + 1) + ".\tLinked list: ");
+                System.out.print((i + 1) + ".\tLinked list: Before processing: ");
                 PrintList.display(inputLinkedList.head);
                 System.out.println("\tMaximum twin sum: " + twinSum(inputLinkedList.head));
+                System.out.print("\tLinked list: After processing: ");
+                PrintList.display(inputLinkedList.head);
                 System.out.println(new String(new char[100]).replace('\0', '-'));
             }
         }
@@ -132,11 +134,12 @@ public class MaxTwinSumLinkedList {
 
     public static ListNode reverse(ListNode head) {
         ListNode prev = null;
-        while (head != null) {
-            ListNode next = head.next;
-            head.next = prev;
-            prev = head;
-            head = next;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
         }
         return prev;
     }
@@ -151,15 +154,42 @@ public class MaxTwinSumLinkedList {
         return slow;
     }
 
+    public static int maxSum(ListNode head1, ListNode head2) {
+        int maxSum = 0;
+        ListNode curr1 = head1;
+        ListNode curr2 = head2;
+
+        while (curr1 != null && curr2 != null) {
+            int sum = curr1.val + curr2.val;
+            maxSum = Math.max(maxSum, sum);
+            curr1 = curr1.next;
+            curr2 = curr2.next;
+        }
+        return maxSum;
+    }
+
     public static int twinSum(ListNode head) {
+
+        // Replace this placeholder return statement with your code
+        ListNode mid = middleNode(head);
+        ListNode revHead = reverse(mid.next);
+        // optional: break list into two halves
+        mid.next = null;
+        int maxSum = maxSum(head, revHead);
+        // restore original list
+        mid.next = reverse(revHead);
+        return maxSum;
+    }
+
+    public static int twinSum2(ListNode head) {
 
         // Replace this placeholder return statement with your code
         ListNode mid = middleNode(head);
         ListNode prev = reverse(mid);
 
         int maxSum = 0;
-        ListNode  current = head;
-        while (prev != null ) {
+        ListNode current = head;
+        while (prev != null) {
             maxSum = Math.max(maxSum, current.val + prev.val);
             current = current.next;
             prev = prev.next;
@@ -172,10 +202,11 @@ public class MaxTwinSumLinkedList {
         // create a linked list from an array of integers
         LinkedList linkedList = new LinkedList(Arrays.asList(2, 3, 5, 7));
         int i =1;
-        System.out.print((i + 1) + ".\tLinked list: ");
+        System.out.print((i + 1) + ".\tLinked list: Before processing: ");
         PrintList.display(linkedList.head);
-        System.out.println("Maximum twin sum: " +
-        twinSum(linkedList.head));
+        System.out.println("\tMaximum twin sum: " + twinSum(linkedList.head));
+        System.out.print("\tLinked list: After processing: ");
+        PrintList.display(linkedList.head);
         System.out.println(new String(new char[100]).replace('\0', '-'));
     }
 }

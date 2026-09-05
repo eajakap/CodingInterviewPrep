@@ -122,11 +122,14 @@ public class LinkedListPallindrome {
         public static void main( String args[] ) {
 
             List<List<Integer>> inputList = Arrays.asList(
+                    Arrays.asList(1, 2, 2, 1),
+                    Arrays.asList(1, 2),
                     Arrays.asList(2, 4, 6, 4, 2),
                     Arrays.asList(0, 3, 5, 5, 0),
                     Arrays.asList(9, 27, 4, 4, 27, 9),
                     Arrays.asList(5, 4, 7, 9, 4, 5),
-                    Arrays.asList(5, 10, 15, 20, 15, 10, 5)
+                    Arrays.asList(5, 10, 15, 20, 15, 10, 5),
+                    Arrays.asList(2, 3, 5, 5, 3, 2)
             );
 
             for(int i=0; i<inputList.size(); i++){
@@ -148,7 +151,7 @@ public class LinkedListPallindrome {
         }
     }
 
-    public static boolean isPalindrome(ListNode head) {
+    public static boolean isPalindrome2(ListNode head) {
         if (head == null || head.next == null) {
             return true; // An empty list or a single node is a palindrome
         }
@@ -176,6 +179,53 @@ public class LinkedListPallindrome {
         }
 
         return true; // It's a palindrome
+    }
+
+    public static ListNode reverseList(ListNode head) {
+        ListNode current = head;
+        ListNode previous = null;
+        while (current != null) {
+            ListNode temp = current.next;
+            current.next = previous;
+            previous = current;
+            current = temp;
+        }
+        return previous;
+    }
+
+    public static boolean identicalLists(ListNode A, ListNode B) {
+        ListNode currentA = A;
+        ListNode currentB = B;
+
+        while (currentA != null && currentB != null) {
+            if (currentA.val != currentB.val) {
+                return false;
+            }
+            currentA = currentA.next;
+            currentB = currentB.next;
+        }
+        return (true);
+    }
+
+    public static ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public static boolean isPalindrome(ListNode head) {
+        ListNode middle = middleNode(head);
+        ListNode secondHalfHead = middle;
+        ListNode reversed = reverseList(secondHalfHead);
+        middle.next=null; // Temporarily break the list to avoid cycles
+        boolean similar = identicalLists(head, reversed);
+        ListNode original = reverseList(reversed);
+        middle.next = original;
+        return similar;
     }
 
     public static void main(String[] args) {
