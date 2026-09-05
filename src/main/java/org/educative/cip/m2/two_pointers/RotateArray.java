@@ -37,6 +37,7 @@ public class RotateArray {
 
     private static void reverse(int[] nums, int left, int right) {
         while (left < right) {
+            // swap the elements at left and right indices
             int temp = nums[left];
             nums[left] = nums[right];
             nums[right] = temp;

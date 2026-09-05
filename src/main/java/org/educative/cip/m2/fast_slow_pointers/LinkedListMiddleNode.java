@@ -67,11 +67,12 @@ public class LinkedListMiddleNode {
         ListNode slow = head;
         ListNode fast = head;
 
+        // Odd Nodes : Slow will be at the middle node, Fast will be at the last node (fast.next == null/none)
+        // Even Nodes : Slow will be at the second middle node, Fast will be at the None node (fast == null/none)
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-
         return slow;
     }
 

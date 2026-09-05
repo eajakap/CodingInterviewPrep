@@ -4,6 +4,20 @@ import java.util.Arrays;
 
 import java.util.*;
 /*
+    * Problem: Circular Array Loop
+    * Given a circular array of integers, determine if there is a cycle in the array. A cycle must be "forward" or "backward" and must have more than one element.
+    * Explore techniques to detect circular loops in an array of integers using fast and slow pointers.
+    * Understand how to identify cycles where all steps move in one direction, mastering a common problem pattern for coding interviews.
+    * Approach:
+    * 1. Use two pointers (slow and fast) to traverse the array.
+    * 2. For each element, check if it can be part of a cycle by moving the slow pointer one step and the fast pointer two steps.
+    * 3. If the slow and fast pointers meet, a cycle exists.
+    * 4. Ensure that the direction of movement is consistent (all positive or all negative) and that the cycle has more than one element.
+    *
+    * Example:
+    * Input: [2, -1, 1, 2, 2]
+    * Output: true (There is a cycle: index 0 -> index 2 -> index 3 -> index 0)
+    *
  * Time Complexity: O(n^2) - We traverse the array to detect a cycle and there is while loop too.
  * Space Complexity: O(1) - We use a constant amount of space for pointers.
  */
@@ -53,10 +67,11 @@ public class CircularArrayLoop {
     public static boolean isNotCycle(int[] nums, boolean prevDirection, int pointer) {
         boolean currDirection = nums[pointer] >= 0;
 
+        // If the direction changes or the next step is a self-loop, return true (not a cycle)
         if (prevDirection != currDirection || nums[pointer] % nums.length == 0) {
             return true;
         }
-
+        // If the direction is consistent and the next step is not a self-loop, return false (potential cycle)
         return false;
     }
     // Driver code

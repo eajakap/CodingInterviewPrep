@@ -35,6 +35,7 @@ public class HappyNumber {
         }
         return totalSum;
     }
+
     public static boolean isHappyNumber(int n) {
         int slowPointer = n;
         int fastPointer = sumOfSquaredDigits(n);

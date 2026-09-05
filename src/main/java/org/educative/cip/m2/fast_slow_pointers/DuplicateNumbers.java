@@ -15,6 +15,8 @@ public class DuplicateNumbers {
             fast = nums[nums[fast]];
 
             if (slow == fast) {
+                System.out.println("index-1: slow " + slow + " --> value: " + nums[slow]);
+                System.out.println("index-1: fast " + fast + " --> value: " + nums[fast]);
                 break;
             }
         }
@@ -25,7 +27,8 @@ public class DuplicateNumbers {
             slow = nums[slow];
             fast = nums[fast];
         }
-
+        System.out.println("index-2: slow " + slow + " --> value: " + nums[slow]);
+        System.out.println("index-2: fast " + fast + " --> value: " + nums[fast]);
         return fast;
     }
     // Driver code
