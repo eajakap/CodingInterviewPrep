@@ -107,7 +107,16 @@ public class LinkedListCycleIII {
     }
 
     static class Solution {
-        public static int countCycleLength(ListNode head) {
+        /*
+         * Function to count the length of the cycle in a linked list.
+         * If there is no cycle, it returns 0.
+         * Steps:
+         * 1. Use two pointers, slow and fast, to traverse the linked list. slow moves 1 step and fast moves 2 steps. Cycle is detected if slow == fast
+         * 2. If they meet, a cycle is detected.
+         * 3. To find the length of the cycle, keep one pointer fixed and move forward with the other pointer until it meets the fixed pointer again, counting the number of steps taken.
+         * 4. Return the count as the length of the cycle.
+         */
+        public static int countCycleLength2(ListNode head) {
             ListNode slow = head, fast = head;
 
             while (fast != null && fast.next != null) {
@@ -128,6 +137,36 @@ public class LinkedListCycleIII {
             }
             return 0;
         }
+
+        private static boolean isCyclic(ListNode head, ListNode slow, ListNode fast) {
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+
+                if (slow == fast) {
+                    return true; // cycle detected
+                }
+            }
+            return false; // no cycle
+        }
+
+        private static int countCycleLength(ListNode slow, ListNode fast) {
+            int length = 1;
+            slow = slow.next; // count the start node
+            while (slow != fast) { // count the rest of the nodes in the cycle
+                length++;
+                slow = slow.next;
+            }
+
+            return length;
+        }
+
+        public static int countCycleLength(ListNode head) {
+            ListNode slow = head;
+            ListNode fast = head;
+            return isCyclic(head, slow, fast) ? countCycleLength(slow, fast) : 0;
+        }
+
         // Driver code
         public static void main(String args[]) {
             List<List<Integer>> inputList = Arrays.asList(
@@ -154,7 +193,7 @@ public class LinkedListCycleIII {
                     ListNode lastNode = list.getNode(list.head, length - 1);
                     lastNode.next = list.getNode(list.head, pos[i]);
                 }
-                System.out.println("\n\tCycle length = " + countCycleLength(list.head));
+                System.out.println("\n\tCycle length = " + countCycleLength2(list.head));
                 System.out.println(new String(new char[100]).replace('\0', '-'));
             }
         }

@@ -108,6 +108,15 @@ public class LinkedListCycleIV {
     }
 
     static class Solution {
+        /* Steps to remove cycle in a linked list:
+         * 1. Use Floyd's Cycle Detection Algorithm to detect the cycle.
+         *    - If a cycle is detected, the slow and fast pointers will meet at some point in the cycle.
+         * 2. If a cycle is detected, find the starting node of the cycle.
+         *   - Move one pointer to the head of the linked list and keep the other pointer at the meeting point.
+         * 3. Traverse the cycle to find the last node and set its next pointer to null.
+         *    - This will remove the cycle from the linked list.
+         * 4. Return the head of the modified linked list.
+         */
         public static ListNode removeCycle(ListNode head) {
             if (head == null) {
                 return null;
@@ -125,6 +134,7 @@ public class LinkedListCycleIV {
             }
 
             if (fast == null || fast.next == null) {
+                // cycle not found, return the original linked list
                 return head;
             }
 
@@ -134,6 +144,7 @@ public class LinkedListCycleIV {
                 fast = fast.next;
             }
 
+            // traverse the cycle to find the last node and set its next pointer to null
             while (fast.next != slow) {
                 fast = fast.next;
             }
