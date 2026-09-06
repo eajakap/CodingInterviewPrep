@@ -2,6 +2,15 @@ package org.educative.cip.m2.two_pointers;
 
 import java.util.*;
 /*
+ * Problem: Given two nodes in a binary tree, find their lowest common ancestor (LCA).
+ * The LCA of two nodes p and q in a binary tree is defined as the lowest node that has both p and q as descendants (where we allow a node to be a descendant of itself).
+ * Steps to solve the problem:
+ * 1. Start with two pointers, one for each node (p and q).
+ * 2. Move each pointer up to its parent node until they meet.
+ * 3. If a pointer reaches the root (null), redirect it to the other node (p or q).
+ * 4. Continue this process until the two pointers meet at the lowest common ancestor.
+ * 5. Return the node where the two pointers meet.
+ *
  * Time Complexity: O(h) - where h is the height of the binary tree. In the worst case, we may need to traverse from a leaf node to the root.
  * Space Complexity: O(1) - We use a constant amount of space for pointers.
  */

@@ -4,6 +4,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 /*
+ * Problem: Count the number of pairs in a list of integers whose sum is less than a given target value.
+ * Approach: Sort the list and use a two-pointer technique to find pairs efficiently.
+ * Steps:
+ * 1. Sort the list of integers.
+ * 2. Initialize two pointers: one at the start (low) and one at the end (high) of the list.
+ * 3. While low < high:
+ *    - If the sum of the elements at the low and high pointers is less than the target, all pairs between low and high are valid. Count them and move the low pointer up.
+ *    - Otherwise, move the high pointer down.
+ * 4. Return the count of valid pairs.
+ * This class provides a method to count the number of pairs in a list of integers whose sum is less than a given target value.
+ * The approach uses sorting and a two-pointer technique to efficiently find the pairs.
  * Time Complexity: O(n log n) - Sorting the list takes O(n log n) time, and the two-pointer traversal takes O(n) time.
  * Space Complexity: O(1) - We use a constant amount of space for pointers and counters.
  */
