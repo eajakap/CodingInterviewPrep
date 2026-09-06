@@ -32,9 +32,11 @@ public class MinMovesPalindrome {
         int moves = 0;
 
         for (int i = 0, j = chars.length - 1; i < j; ++i) {
+            // Find the matching character for chars[i] from the right side using the inner for loop
             int k = j;
             for (; k > i; --k) {
                 if (chars[i] == chars[k]) {
+                    // Bubble the matching character to the position j
                     for (; k < j; ++k) {
                         char temp = chars[k];
                         chars[k] = chars[k + 1];
@@ -66,29 +68,28 @@ public class MinMovesPalindrome {
         int j = chars.length - 1;
 
         while (i < j) {
-            if  (chars[i] == chars[j]) {
-                i++;
-                j--;
-                continue;
-            }
-
-            int k = j;
             // find the matching character for chars[i] from the right side
+            int k = j;
             while (k > i && chars[k] != chars[i]) {
                 k--;
             }
 
+            // If k == i, it means no matching character was found for chars[i] in the right half of the string.
             if (k == i) {
+                // No matching character found → this must be the middle character
+                // Move it one step right by swapping with its neighbor
                 // Unique middle character
                 swap(chars, i, i + 1);
                 moves++;
             } else {
+                // Found a match at index k → bubble it to position j
                 // Bubble matching character to j
                 while (k < j) {
                     swap(chars, k, k + 1);
                     moves++;
                     k++;
                 }
+                // Move inward
                 i++;
                 j--;
             }
