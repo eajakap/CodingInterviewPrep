@@ -3,6 +3,19 @@ package org.educative.cip.m2.two_pointers;
 import java.util.HashMap;
 import java.util.Map;
 /*
+    * A strobogrammatic number is a number that looks the same when rotated 180 degrees (looked at upside down).
+    * For example, "69", "88", and "818" are all strobogrammatic numbers.
+    *
+    * This class provides two methods to check if a given string representation of a number is strobogrammatic.
+    *
+    * Method 1: isStrobogrammatic
+    * - Uses a HashMap to store valid strobogrammatic digit pairs.
+    * - Compares characters from the start and end of the string moving towards the center.
+    *
+    * Method 2: isStrobogrammatic2
+    * - Uses a string containing valid strobogrammatic pairs for comparison.
+    * - Similar logic to the first method but checks pairs using string containment.
+    *
  * Time Complexity: O(n) - We traverse the string once to check if it's strobogrammatic.
  * Space Complexity: O(1) - We use a constant amount of space for the dictionary.
  */
