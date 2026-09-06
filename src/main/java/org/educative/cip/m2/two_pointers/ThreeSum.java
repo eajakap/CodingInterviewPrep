@@ -8,6 +8,17 @@ import java.util.*;
  * Space Complexity: O(n) for the result list.
  * Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that
  * i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+ * Steps:
+ * 1. Sort the input array.
+ * 2. Initialize an empty list to store the result triplets.
+ * 3. Iterate through the array (upto n - 2), fixing one element and using two pointers (left and right) to find pairs that sum to the target value of 0.
+ *    if the sum is less than 0, move the left pointer to the right; if the sum is greater than 0, move the right pointer to the left;
+ *    if the sum is equal to 0, add the triplet to the result list.
+ * 4. Skip duplicate elements to avoid duplicate triplets in the result.
+ * 5. Add the found triplets to the result list.
+ * 6. Return the result list containing all unique triplets that sum to zero.
+ *
+ *
  */
 public class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
