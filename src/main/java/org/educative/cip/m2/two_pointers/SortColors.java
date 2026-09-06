@@ -6,6 +6,20 @@ import java.util.Arrays;
  * Space Complexity: O(1) - We use a constant amount of space for pointers and swaps.
  */
 public class SortColors {
+    /**
+     * Sorts an array of colors represented by integers (0, 1, 2) in-place.
+     * The function uses the Dutch National Flag algorithm to sort the colors in a single pass.
+     * Steps:
+     * 1. Initialize three pointers: low, mid, and high.
+     * 2. Traverse the array with the mid pointer:
+     *    - If the current element is 0, swap it with the element at the low pointer and move both pointers forward.
+     *    - If the current element is 1, move the mid pointer forward.
+     *    - If the current element is 2, swap it with the element at the high pointer and move the high pointer backward.
+     * 3. Continue until the mid pointer surpasses the high pointer, ensuring all colors are sorted.
+     *
+     * @param colors An array of integers where each integer represents a color (0, 1, or 2).
+     * @return The sorted array of colors.
+     */
     public static int[] sortColors (int[] colors) {
         int low = 0;
         int mid = 0;

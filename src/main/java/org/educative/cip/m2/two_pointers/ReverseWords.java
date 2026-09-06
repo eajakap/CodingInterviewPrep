@@ -24,6 +24,10 @@ public class ReverseWords {
         return sb.toString();
     }
 
+    /*
+        * Time Complexity: O(n) - We traverse the sentence once to split it into words and then again to reverse the order of the words.
+        * Space Complexity: O(n) - We use additional space to store the words in an array and a StringBuilder for the reversed sentence.
+     */
     static class Solution {
         public static String reverseWords(String sentence) {
             sentence = sentence.trim();

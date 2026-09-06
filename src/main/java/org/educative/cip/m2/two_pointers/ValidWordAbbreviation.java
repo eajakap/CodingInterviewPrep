@@ -6,6 +6,22 @@ package org.educative.cip.m2.two_pointers;
  * Space Complexity: O(1) - We use a constant amount of space for pointers and counters.
  */
 public class ValidWordAbbreviation {
+    /*
+     * Steps:
+     * 1. Initialize two pointers, i for the word and j for the abbreviation.
+     * 2. Traverse both the word and the abbreviation string:
+     *    - If the current character in the abbreviation is a letter, check if it matches the corresponding character in the word.
+     *      if it matches, move both pointers forward. If it does not match, return false.
+     *    - If the current character in the abbreviation is a digit. Verify if the digit is not a leading zero. if leading zero, return false.
+     *      Otherwise, calculate the number and move the pointer in the word accordingly.
+     *    - If the characters do not match or there are leading zeros in the abbreviation, return false.
+     * 3. After traversing both strings, check if both pointers have reached the end of their respective strings.
+     *
+     * This method checks if the given abbreviation is a valid abbreviation of the word.
+     * @param word The original word to be checked against.
+     * @param abbr The abbreviation to validate.
+     * @return true if the abbreviation is valid, false otherwise.
+     */
     public static boolean validWordAbbreviation(String word, String abbr) {
 
         // Replace the following return statement with your code
