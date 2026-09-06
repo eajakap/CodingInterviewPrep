@@ -108,12 +108,13 @@ public class MinMovesPalindrome {
                 j--;
             }
         }
+        System.out.println("\tInput: " + s + " --> Palindrome formed: " + new String(chars) + ", No. of Moves: " + moves);
         return moves;
     }
 
     // Driver code
     public static void main(String[] args) {
-        List<String> strings = Arrays.asList("ntiin", "mamda", "ccxx", "arcacer", "w", "ooooooo", "eggeekgbbeg");
+        List<String> strings = Arrays.asList("xcxoxoc", "ntiin", "mamda", "ccxx", "arcacer", "w", "ooooooo", "eggeekgbbeg");
 
         MinMovesPalindrome sol = new MinMovesPalindrome();
         for (int i = 0; i < strings.size(); ++i) {
