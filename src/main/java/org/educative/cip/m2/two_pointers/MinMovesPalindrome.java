@@ -8,6 +8,24 @@ import java.util.List;
  * Space Complexity: O(n) - We use a character array to store the string.
  */
 public class MinMovesPalindrome {
+    /**
+     * This method calculates the minimum number of adjacent swaps required to convert a given string into a palindrome.
+     * It uses a two-pointer approach, where one pointer starts from the beginning of the string and the other from the end.
+     * The algorithm looks for matching characters and counts the number of swaps needed to bring them together.
+     * Steps:
+     * 1. Convert the input string into a character array for easier manipulation.
+     * 2. Initialize a counter for the number of moves (swaps).
+     * 3. Use two pointers, one starting from the beginning (i) and the other from the end (j) of the character array.
+     * 4. For each character at position i, search for a matching character from the end (j) towards the beginning.
+     * 5. If a match is found, perform adjacent swaps to bring the matching character to the position j and increment the move counter accordingly.
+     * 6. If no match is found (i.e., the character at position i is unique),
+     *      increment the move counter by the number of characters that need to be swapped to bring the unique character to the middle of the palindrome.
+     * 7. Continue this process until the two pointers meet or cross each other.
+     * 8. Return the total number of moves (swaps) required to make the string a palindrome.
+     *
+     * @param s The input string that needs to be transformed into a palindrome.
+     * @return The minimum number of adjacent swaps required to make the string a palindrome.
+     */
     public int minMovesToMakePalindrome(String s) {
         char[] chars = s.toCharArray();
 
