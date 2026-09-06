@@ -24,6 +24,7 @@ package org.educative.cip.m2.two_pointers;
  */
 public class CountSubArrays {
 
+    // Function to count the number of fixed-bound subarrays
     public long countSubarrays(int[] nums, int minK, int maxK) {
         int n = nums.length;
         int minPos = -1, maxPos = -1, leftBound = -1;
@@ -31,22 +32,24 @@ public class CountSubArrays {
 
         for (int i = 0; i < n; i++) {
             if (nums[i] < minK || nums[i] > maxK) {
+                // If the current number is out of bounds, update leftBound and reset minPos and maxPos
                 leftBound = i; // invalid number found
                 minPos = -1; // reset minPos since the current number is out of bounds
                 maxPos = -1; // reset maxPos since the current number is out of bounds
-            }
-
-            if (nums[i] == minK) {
-                minPos = i;
-            }
-
-            if (nums[i] == maxK) {
-                maxPos = i;
-            }
-
-            if (minPos != -1 && maxPos != -1) {
-                // Calculate the number of valid subarrays ending at index i
-                count += Math.max(0, Math.min(minPos, maxPos) - leftBound);
+            } else {
+                // Update the positions of minK if found
+                if (nums[i] == minK) {
+                    minPos = i;
+                }
+                // Update the positions of maxK if found
+                if (nums[i] == maxK) {
+                    maxPos = i;
+                }
+                // If both minK and maxK have been found, calculate the number of valid subarrays
+                if (minPos != -1 && maxPos != -1) {
+                    // Calculate the number of valid subarrays ending at index i
+                    count += Math.max(0, Math.min(minPos, maxPos) - leftBound);
+                }
             }
         }
 
