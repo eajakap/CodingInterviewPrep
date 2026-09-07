@@ -56,8 +56,12 @@ public class LargestLexigraphicString
             // Move forward while characters match
             // This finds the first mismatch between the two suffixes.
             while (j + k < n && word.charAt(i + k) == word.charAt(j + k)) {
+                // characters match, move k forward
                 k++;
             }
+            // at this point characters at i+k and j+k are different or j+k has reached the end of the string
+            // k is the length of the characters that matched so far
+            System.out.println("Comparing suffixes starting at i=" + i + " and j=" + j + ", matched length k=" + k);
 
             // Case 1: mismatch found and suffix at j is lexicographically larger
             // i.e., word[j+k] > word[i+k]
@@ -88,8 +92,8 @@ public class LargestLexigraphicString
 
     // Driver code
     public static void main(String[] args) {
-        List<String> words = Arrays.asList("dbca", "gggg", "acbd", "zxya", "mnopqr");
-        List<Integer> friends = Arrays.asList(2, 4, 2, 3, 3);
+        List<String> words = Arrays.asList("abczd", "dbca", "gggg", "acbd", "zxya", "mnopqr");
+        List<Integer> friends = Arrays.asList(2, 2, 4, 2, 3, 3);
 
         for (int idx = 0; idx < words.size(); idx++) {
             String word = words.get(idx);
