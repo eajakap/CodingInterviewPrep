@@ -2,33 +2,88 @@ package org.educative.cip.m2.two_pointers;
 
 import java.util.*;
 
+/**
+ * Lexicographically Largest String Problem:
+ * Given a string and an integer numFriends, the task is to find the lexicographically largest substring of
+ * the string that can be formed by removing characters such that the resulting substring has a length
+ * of (original length - numFriends + 1).
+ *
+ * Steps to solve the problem:
+ * 1. Initialize two pointers i and j to traverse the string.
+ * 2. Compare the characters at positions i and j.
+ * 3. If the character at j is greater than the character at i, update i to j and move j forward.
+ * 4. If the character at j is less than or equal to the character at i, move j forward.
+ * 5. Continue this process until j reaches the end of the string.
+ * 6. The substring starting from index i to the end of the string will be the lexicographically largest substring.
+ * 7. Return the substring of length (original length - numFriends + 1) starting from index i.
+ *
+ * This class provides a method to find the lexicographically largest substring of a given string
+ * that can be formed by removing characters such that the resulting substring has a length of
+ * (original length - numFriends + 1).
+ *
+ * Time Complexity: O(n), where n is the length of the input string. The algorithm traverses the string once.
+ * Space Complexity: O(1), as we are using a constant amount of extra space.
+ */
 public class LargestLexigraphicString
 {
-    // Function to find the lexicographically largest string
+    /**
+     * Returns the lexicographically largest substring of length (n - numFriends + 1).
+     *
+     * The algorithm compares suffixes starting at different indices (i and j)
+     * and keeps the index 'i' that leads to the lexicographically largest suffix.
+     *
+     * This is similar to Duval's algorithm for finding the largest suffix.
+     */
     public String answerString(String word, int numFriends) {
+
+        // If only one friend, we can take the entire string.
         if (numFriends == 1) {
             return word;
         }
 
         int n = word.length();
-        int i = 0, j = 1;
 
+        // i = best starting index found so far
+        // j = candidate index to compare against i
+        int i = 0;
+        int j = 1;
+
+        // Compare suffixes word[i..] and word[j..]
         while (j < n) {
+
             int k = 0;
+
+            // Move forward while characters match
+            // This finds the first mismatch between the two suffixes.
             while (j + k < n && word.charAt(i + k) == word.charAt(j + k)) {
                 k++;
             }
 
+            // Case 1: mismatch found and suffix at j is lexicographically larger
+            // i.e., word[j+k] > word[i+k]
             if (j + k < n && word.charAt(i + k) < word.charAt(j + k)) {
-                int tempIndex = i;
+
+                // Update best starting index
+                int oldI = i;
                 i = j;
-                j = Math.max(j + 1, tempIndex + k + 1);
+
+                // Move j forward intelligently:
+                // - j + 1: next candidate
+                // - oldI + k + 1: skip positions that cannot beat the new best suffix
+                j = Math.max(j + 1, oldI + k + 1);
+
             } else {
+                // Case 2: suffix at i is better or equal
+                // Skip ahead past the matched region
                 j = j + k + 1;
             }
         }
 
-        return word.substring(i, Math.min(n, i + n - numFriends + 1));
+        // Length of substring we must return
+        int length = n - numFriends + 1;
+
+        // Return the lexicographically largest substring starting at index i
+        return word.substring(i, i + length);
     }
 
     // Driver code
