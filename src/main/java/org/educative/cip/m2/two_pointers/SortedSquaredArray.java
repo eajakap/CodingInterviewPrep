@@ -3,6 +3,18 @@ package org.educative.cip.m2.two_pointers;
 import java.util.Arrays;
 
 /*
+ * Problem:
+ * Given a sorted array of integers, return a new array containing the squares of each number, also sorted in non-decreasing order.
+ *
+ * Steps to solve the problem:
+ * 1. Initialize two pointers, one at the start (left) and one at the end (right) of the array.
+ * 2. Create a result array of the same length as the input array to store the squared values.
+ * 3. Iterate while the left pointer is less than or equal to the right pointer:
+ *    a. Compare the absolute values of the elements at the left and right pointers.
+ *    b. Square the larger absolute value and place it at the current position in the result array (starting from the end).
+ *    c. Move the corresponding pointer (left or right) inward and decrement the position in the result array.
+ * 4. Return the result array after the loop ends.
+ *
  * Time Complexity: O(n) - We traverse the array once to compute the squares and sort them.
  * Space Complexity: O(n) - We use an additional array to store the squared values.
  */
