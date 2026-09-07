@@ -83,7 +83,7 @@ public class LargestLexigraphicString
         int length = n - numFriends + 1;
 
         // Return the lexicographically largest substring starting at index i
-        return word.substring(i, i + length);
+        return word.substring(i, Math.min(n, i + length));
     }
 
     // Driver code
