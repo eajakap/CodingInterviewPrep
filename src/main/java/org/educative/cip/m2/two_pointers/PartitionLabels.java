@@ -70,7 +70,7 @@ public class PartitionLabels
                 int partitionSize = i - partitionStart + 1;
                 partitionSizes.add(partitionSize);
                 // Start a new partition
-                partitionStart = i + 1;
+                partitionStart = i + 1; // Update the start of the next partition to be the next index
             }
         }
         // Step 5: Return the list of partition sizes
