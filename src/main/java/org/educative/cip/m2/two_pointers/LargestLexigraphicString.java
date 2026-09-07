@@ -11,11 +11,13 @@ import java.util.*;
  * Steps to solve the problem:
  * 1. Initialize two pointers i and j to traverse the string.
  * 2. Compare the characters at positions i and j.
- * 3. If the character at j is greater than the character at i, update i to j and move j forward.
- * 4. If the character at j is less than or equal to the character at i, move j forward.
- * 5. Continue this process until j reaches the end of the string.
- * 6. The substring starting from index i to the end of the string will be the lexicographically largest substring.
- * 7. Return the substring of length (original length - numFriends + 1) starting from index i.
+ * 3. Finds the first mismatch between the two suffixes - continues comparing characters until a mismatch
+ *    is found or the end of the string is reached. k = matched characters count between the two suffixes.
+ * 4. If the character at j+k is greater than the character at i+k, update i to j and move j forward. (This means the suffix starting at j is now the best candidate.)
+ * 5. If the character at j+k is less than the character at i+k, move j forward. (This means the suffix starting at i is still the best candidate.)
+ * 6. Continue this process until j reaches the end of the string.
+ * 7. The substring starting from index i to the end of the string will be the lexicographically largest substring.
+ * 8. Return the substring of length (original length - numFriends + 1) starting from index i.
  *
  * This class provides a method to find the lexicographically largest substring of a given string
  * that can be formed by removing characters such that the resulting substring has a length of
