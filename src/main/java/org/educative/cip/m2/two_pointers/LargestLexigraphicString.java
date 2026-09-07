@@ -63,7 +63,7 @@ public class LargestLexigraphicString
             }
             // at this point characters at i+k and j+k are different or j+k has reached the end of the string
             // k is the length of the characters that matched so far
-            System.out.println("Comparing suffixes starting at i=" + i + " and j=" + j + ", matched length k=" + k);
+//            System.out.println("Comparing suffixes starting at i=" + i + " and j=" + j + ", matched length k=" + k);
 
             // Case 1: mismatch found and suffix at j is lexicographically larger
             // i.e., word[j+k] > word[i+k]
