@@ -2,10 +2,33 @@ package org.educative.cip.m2.two_pointers;
 
 import java.util.*;
 /*
+ * Next Permutation
+ * Problem: Given an array of integers, find the next lexicographical permutation of the array.
+ * If such a permutation is not possible (i.e., the array is sorted in descending order),
+ * rearrange the array to the lowest possible order (i.e., sorted in ascending order).
+ * The replacement must be in place and use only constant extra memory.
+ *
+ * Steps to generate the next lexicographically larger permutation:
+ * 1. Scan the array from right to left to find the first index `i` such that
+ *    nums[i] < nums[i + 1]. This identifies the pivot — the position where
+ *    the current permutation can be increased. If no such index exists,
+ *    the array is strictly descending and represents the highest permutation.
+ * 2. If a pivot is found, scan again from the right to find the first index `j`
+ *    such that nums[j] > nums[i]. This element is the successor — the smallest
+ *    number greater than the pivot within the suffix.
+ * 3. Swap nums[i] (pivot) with nums[j] (successor). This increases the permutation
+ *    minimally at position `i`.
+ * 4. Reverse the subarray from following pivot index - `i + 1` to the end.
+ *    The suffix was originally in descending order; reversing it produces the smallest lexicographical order
+ *    for that suffix, ensuring the overall permutation is the next immediate one.
+ * 5. If no pivot was found in step 1 (meaning the array is in descending order),
+ *    reverse the entire array to obtain the lowest permutation (ascending order).
+ *
  * Time Complexity: O(n) - We traverse the array once to find the next permutation.
  * Space Complexity: O(1) - We use a constant amount of space for pointers and swaps.
  */
 public class NextPermutation {
+    // swap function to swap two elements in the array
     private void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];
@@ -33,6 +56,7 @@ public class NextPermutation {
         reverse(nums, i + 1, nums.length - 1);
     }
 
+    // reverse function to reverse a subarray from start to end indices
     private void reverse(int[] nums, int start, int end) {
         while (start < end) {
             swap(nums, start, end);
