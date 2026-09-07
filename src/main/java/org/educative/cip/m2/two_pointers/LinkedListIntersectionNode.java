@@ -2,10 +2,24 @@ package org.educative.cip.m2.two_pointers;
 import java.util.Arrays;
 import java.util.List;
 /*
- * Time Complexity: O(m * n) - In the worst case, we may need to traverse both linked lists entirely.
+ * Problem:
+ * Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect.
+ *  If the two linked lists have no intersection at all, return null.
+ *
+ * Steps to solve the problem:
+ * 1. Initialize two pointers, ptrA and ptrB, to the heads of the two linked lists.
+ * 2. Traverse both linked lists simultaneously:
+ *    - If ptrA reaches the end of its list, redirect it to the head of the other list (headB).
+ *    - If ptrB reaches the end of its list, redirect it to the head of the other list (headA).
+ *    - Move both pointers one step forward.
+ * 3. Continue this process until the two pointers meet (i.e., ptrA == ptrB) or both pointers reach the end (null).
+ * 4. If the pointers meet, return the intersection node; otherwise, return null.
+ *
+ * Time Complexity: O(m + n) - In the worst case, we may need to traverse both linked lists entirely.
  * Space Complexity: O(1) - We use a constant amount of space for pointers.
  */
 public class LinkedListIntersectionNode {
+    // Definition for singly-linked list.
     static class ListNode {
         int val;
         ListNode next;
@@ -17,6 +31,7 @@ public class LinkedListIntersectionNode {
         }
     }
 
+    // Definition for singly-linked list.
     static class LinkedList {
         ListNode head;
 
@@ -48,6 +63,7 @@ public class LinkedListIntersectionNode {
 
     }
 
+    // Utility class to print the linked list
     static class PrintList{
         // Function to display the linked list
         public static void display(ListNode head) {
@@ -60,7 +76,23 @@ public class LinkedListIntersectionNode {
         }
     }
 
+    // Solution class to find the intersection node of two linked lists
     static class Solution {
+        /*
+         * Function to find the intersection node of two linked lists.
+         * Steps:
+         * 1. Initialize two pointers, ptrA and ptrB, to the heads of the two linked lists.
+         * 2. Traverse both linked lists simultaneously:
+         *    - If ptrA reaches the end of its list, redirect it to the head of the other list (headB).
+         *    - If ptrB reaches the end of its list, redirect it to the head of the other list (headA).
+         *    - Move both pointers one step forward.
+         * 3. Continue this process until the two pointers meet (i.e., ptrA == ptrB) or both pointers reach the end (null).
+         * 4. If the pointers meet, return the intersection node; otherwise, return null.
+         *
+         * @param headA: The head of the first linked list.
+         * @param headB: The head of the second linked list.
+         * @return: The intersection node, or null if there is no intersection.
+         */
         public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
             ListNode ptrA = headA;
             ListNode ptrB = headB;
