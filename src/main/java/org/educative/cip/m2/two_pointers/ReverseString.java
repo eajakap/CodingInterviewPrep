@@ -2,6 +2,16 @@ package org.educative.cip.m2.two_pointers;
 
 import java.util.*;
 /*
+ * Problem:
+ * Given an array of characters, reverse the array in place.
+ * Step-by-step solution:
+ * 1. Initialize two pointers, left and right, at the start and end of the array, respectively.
+ * 2. While left is less than right:
+ *    a. Swap the characters at the left and right pointers.
+ *    b. Move the left pointer one step to the right and the right pointer one step to the left.
+ * 3. Continue until the pointers meet or cross each other.
+ * 4. The array is now reversed in place.
+ * 5. Return the reversed array.
  * Time Complexity: O(n) - We traverse the array once to reverse the string.
  * Space Complexity: O(1) - We use a constant amount of space for pointers and swaps.
  */
