@@ -49,3 +49,14 @@ public class RemoveElement {
                 {0, 50}
         };
 
+        int[] valArr = {5, 48, 0, 25, 0};
+
+        RemoveElement sol = new RemoveElement();
+        for (int i = 0; i < numsArr.length; i++) {
+            System.out.println((i + 1) + ".\tnums: " + java.util.Arrays.toString(numsArr[i]));
+            System.out.println("\tval: " + valArr[i]);
+            System.out.println("\tk: " + sol.removeElement(numsArr[i], valArr[i]));
+            System.out.println("-".repeat(100));
+        }
+    }
+}
