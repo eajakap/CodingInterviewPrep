@@ -41,10 +41,11 @@ public class PartitionLabels
     /*
      * Function to partition the string into as many parts as possible so that each letter appears in at most one part.
      * Steps:
-     * 1. Create an array to store the last occurrence of each character in the string
-     * 2. Iterate through the string and update the end of the current partition based on the last occurrence of the characters seen so far
-     * 3. When the current index reaches the end of the partition, record the size of the partition and start a new partition
-     * 4. Return the list of partition sizes
+     * 1. Create an array to store the last occurrence of each character in the string.
+     * 2. Iterate through the string to mark the last occureance index value int the lastOccurance[] Array.
+     * 3. Iterate through the string and update the end of the current partition based on the last occurrence of the characters seen so far
+     * 4. When the current index reaches the end of the partition, record the size of the partition and start a new partition
+     * 5. Return the list of partition sizes
      */
     public List<Integer> partitionLabels(String s)
     {
@@ -63,15 +64,16 @@ public class PartitionLabels
         for (int i = 0; i < s.length(); i++) {
             // Update the end of the current partition based on the last occurrence of the characters seen so far
             partitionEnd = Math.max(partitionEnd, lastOccurrence[s.charAt(i) - 'a']);
-            // If the current index reaches the end of the partition, record the size of the partition and start a new partition
+            // Step 4: If the current index reaches the end of the partition, record the size of the partition and start a new partition
             if (i == partitionEnd) {
                 // Add the size of the current partition to the list
-                partitionSizes.add(i - partitionStart + 1);
+                int partitionSize = i - partitionStart + 1;
+                partitionSizes.add(partitionSize);
                 // Start a new partition
                 partitionStart = i + 1;
             }
         }
-        // Step 4: Return the list of partition sizes
+        // Step 5: Return the list of partition sizes
         return partitionSizes;
     }
 
