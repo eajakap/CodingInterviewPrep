@@ -50,10 +50,16 @@ public class RotateBox90Degree {
     }
 
     /**
-     * Rotates the box represented as a 2D character array 90 degrees clockwise.
+     * Applies gravity to each row, then rotates the box 90 degrees clockwise.
      *
-     * @param boxGrid the input box before rotation
-     * @return the rotated box after gravity and clockwise rotation
+     * Steps:
+     * 1. For each row, move every stone as far right as possible until it reaches an obstacle ('*')
+     *    or the end of the row.
+     * 2. Once the rows are settled, rotate the entire matrix 90 degrees clockwise.
+     * 3. A cell at (row, col) moves to (col, rows - 1 - row) in the rotated matrix.
+     *
+     * @param boxGrid the input box before gravity and rotation
+     * @return the box after gravity is applied and the matrix is rotated clockwise
      */
     public char[][] rotate90ClockwiseTheBox(char[][] boxGrid) {
        int rows = boxGrid.length;
@@ -97,10 +103,16 @@ public class RotateBox90Degree {
     }
 
     /**
-     * Rotates the box represented as a 2D character array 90 degrees anti-clockwise.
+     * Applies gravity to each row, then rotates the box 90 degrees anti-clockwise.
      *
-     * @param boxGrid the input box before rotation
-     * @return the rotated box after gravity and anti-clockwise rotation
+     * Steps:
+     * 1. For each row, move every stone as far right as possible until it reaches an obstacle ('*')
+     *    or the end of the row.
+     * 2. Once the rows are settled, rotate the entire matrix 90 degrees anti-clockwise.
+     * 3. A cell at (row, col) moves to (cols - 1 - col, row) in the rotated matrix.
+     *
+     * @param boxGrid the input box before gravity and rotation
+     * @return the box after gravity is applied and the matrix is rotated anti-clockwise
      */
     public char[][] rotate90AntiClockwiseTheBox(char[][] boxGrid) {
        int rows = boxGrid.length;
