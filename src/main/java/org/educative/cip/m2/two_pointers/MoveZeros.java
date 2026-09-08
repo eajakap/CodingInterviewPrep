@@ -54,6 +54,7 @@ public class MoveZeros {
                 left++; // Move the left pointer to the next position for the next non-zero element
             }
         }
+        System.out.println("left: " + left + ", right: " + nums.length);
     }
 
     public static void main(String[] args) {
