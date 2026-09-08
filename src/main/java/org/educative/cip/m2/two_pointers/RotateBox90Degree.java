@@ -69,8 +69,10 @@ public class RotateBox90Degree {
        // We scan from right to left because stones drop toward the rightmost available slot.
        // 'emptySlot' stores the next valid landing position for a stone.
        for (int row = 0; row < rows; row++) {
+           // rightmost empty slot index where a stone can fall. Initially, it's the last column.
            int emptySlot = cols - 1;
 
+           // Traverse the row from right to left.
            for (int col = cols - 1; col >= 0; col--) {
                if (boxGrid[row][col] == '*') {
                    // An obstacle blocks falling stones; the next available slot must be left of it.
@@ -123,7 +125,7 @@ public class RotateBox90Degree {
        // The logic is identical to the clockwise version because gravity acts toward the right side.
        for (int row = 0; row < rows; row++) {
            int emptySlot = cols - 1;
-
+           // Traverse the row from right to left.
            for (int col = cols - 1; col >= 0; col--) {
                if (boxGrid[row][col] == '*') {
                    emptySlot = col - 1;
