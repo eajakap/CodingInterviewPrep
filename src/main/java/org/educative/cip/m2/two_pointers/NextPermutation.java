@@ -67,6 +67,7 @@ public class NextPermutation {
 
     public static void main(String[] args) {
         int[][] testCases = {
+                {4, 1, 5, 2, 9, 7, 3},
                 {4, 1, 5, 2, 9, 3, 7},
                 {8, 2, 6, 4, 7, 5},
                 {7, 6, 4, 3, 1},
