@@ -144,7 +144,7 @@ public class NextGreaterElementIII {
 
     public static void main(String[] args) {
         NextGreaterElementIII sol = new NextGreaterElementIII();
-        int[] testCases = {2302431, 1234, 4321, 534976, 2147483647, 1999999999};
+        int[] testCases = {230412, 2302431, 123321, 1234, 4321, 534976, 2147483647, 1999999999};
 
         for (int i = 0; i < testCases.length; i++) {
             int n = testCases[i];
