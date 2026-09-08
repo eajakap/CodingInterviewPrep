@@ -93,6 +93,7 @@ public class RotateBox90Degree {
            Arrays.fill(r, '.');
        }
 
+       // Step 3: Map each cell from the original boxGrid to the new rotated array.
        for (int row = 0; row < rows; row++) {
            for (int col = 0; col < cols; col++) {
                rotated[col][rows - 1 - row] = boxGrid[row][col];
@@ -142,7 +143,8 @@ public class RotateBox90Degree {
            Arrays.fill(r, '.');
        }
 
-       for (int row = 0; row < rows; row++) {
+        // Step 3: Map each cell from the original boxGrid to the new rotated array.
+        for (int row = 0; row < rows; row++) {
            for (int col = 0; col < cols; col++) {
                rotated[cols - 1 - col][row] = boxGrid[row][col];
            }
