@@ -28,32 +28,39 @@ import java.util.*;
  * Space Complexity: O(1) - We use a constant amount of space for pointers and swaps.
  */
 public class NextPermutation {
+
+    // Find the rightmost pivot index where chars[i] < chars[i + 1]
+    // If no such index exists, return -1 indicating the array is in descending order
+    private int pivotIndex(int[] nums) {
+        int n = nums.length;
+        // Start from the second last element and move leftwards
+        for (int pivotIndex = n - 2; pivotIndex >= 0; pivotIndex--) {
+            if (nums[pivotIndex] < nums[pivotIndex + 1]) {
+                return pivotIndex;
+            }
+        }
+        return -1;
+    }
+
+    // Find the smallest index to the right of pivotIndex where
+    // chars[i] > chars[pivotIndex]
+    private int pivotSwapIndex(int[] nums, int pivotIndex) {
+        int n = nums.length;
+        // Find the smallest index to the right of pivotIndex
+        // where chars[i] > chars[pivotIndex]
+        for (int swapIndex = n - 1; swapIndex > pivotIndex; swapIndex--) {
+            if (nums[swapIndex] > nums[pivotIndex]) {
+                return swapIndex;
+            }
+        }
+        return -1; // No valid swap index found
+    }
+
     // swap function to swap two elements in the array
     private void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
-    }
-
-    public void nextPermutation(int[] nums) {
-        int i = nums.length - 2;
-
-        // Find the first element that is smaller than its next rightmost element from the end
-        while (i >= 0 && nums[i + 1] <= nums[i]) {
-            i--;
-        }
-        // If such an element is found, find the first element that is larger than it from the end
-        if (i >= 0) {
-            int j = nums.length - 1;
-            while (nums[j] <= nums[i]) {
-                j--;
-            }
-            // swap the two elements - pivot and successor
-            swap(nums, i, j);
-        }
-
-        // Reverse the elements to get the next permutation
-        reverse(nums, i + 1, nums.length - 1);
     }
 
     // reverse function to reverse a subarray from start to end indices
@@ -64,6 +71,66 @@ public class NextPermutation {
             end--;
         }
     }
+
+    public void nextPermutation2(int[] nums) {
+        int length = nums.length;
+
+        // Find the first element that is smaller than its next rightmost element from the end
+        int pivot = pivotIndex(nums); // start from the second last element
+
+        // If no pivot exists, the digits are in descending order and no larger permutation is possible.
+        if (pivot < 0) return;
+
+        // If such an element is found, find the first element that is larger
+        // than it from the end
+        int swapIdx = pivotSwapIndex(nums, pivot);
+
+        // swap the two elements - pivot and successor
+        swap(nums, pivot, swapIdx);
+
+
+        // Reverse the elements to get the next permutation
+        // start from the element next to pivot to the end of the array
+        reverse(nums, pivot + 1, nums.length - 1);
+    }
+
+    public void nextPermutation(int[] nums) {
+        int length = nums.length;
+
+        // Find the first element that is smaller than its next rightmost element from the end
+        int pivot = length - 2; // start from the second last element
+        while (pivot >= 0 && nums[pivot] >= nums[pivot + 1]) {
+            pivot--;
+        }
+
+        // If no pivot exists, the digits are in descending order and no larger permutation is possible.
+        if (pivot < 0) return;
+
+        // If such an element is found, find the first element that is larger
+        // than it from the end
+        int swapIdx = nums.length - 1;
+        while (nums[swapIdx] <= nums[pivot]) {
+            swapIdx--;
+        }
+
+        // swap the two elements - pivot and successor
+        int temp = nums[pivot];
+        nums[pivot] = nums[swapIdx];
+        nums[swapIdx] = temp;
+
+
+        // Reverse the elements to get the next permutation
+        // start from the element next to pivot to the end of the array
+        int left = pivot + 1, right = length - 1;
+        while (left < right) {
+            int tmp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = tmp;
+            left++;
+            right--;
+        }
+    }
+
 
     public static void main(String[] args) {
         int[][] testCases = {
@@ -84,10 +151,20 @@ public class NextPermutation {
             }
             System.out.println("]");
 
+            // Call the nextPermutation method to find the next permutation
             NextPermutation sol = new NextPermutation();
             sol.nextPermutation(testCases[i]);
-
             System.out.print("\t Next permutation: [");
+            for (int j = 0; j < testCases[i].length; ++j) {
+                System.out.print(testCases[i][j]);
+                if (j != testCases[i].length - 1)
+                    System.out.print(", ");
+            }
+            System.out.println("]");
+
+            // Call the nextPermutation2 method to find the next permutation
+            sol.nextPermutation2(testCases[i]);
+            System.out.print("\t Next permutation-2: [");
             for (int j = 0; j < testCases[i].length; ++j) {
                 System.out.print(testCases[i][j]);
                 if (j != testCases[i].length - 1)
