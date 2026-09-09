@@ -3,6 +3,39 @@ package org.educative.cip.m2.sliding_window;
 import java.util.*;
 
 /**
+ * Frequency of the Most Frequent Element
+ * Problem: Given an integer array nums and an integer k, you can choose any index of the array and
+ * increment the element at that index by 1. You can perform this operation at most k times.
+ * Return the maximum possible frequency of an element after performing at most k operations.
+ * Example 1:
+ * Input: nums = [1,2,4], k = 5
+ * Output: 3
+ * Explanation: Increment the first element three times and the second element two times to make nums = [4,4,4]. 4 has a frequency of 3.
+ * Example 2:
+ * Input: nums = [1,4,8,13], k = 3
+ * Output: 2
+ * Explanation: Increment the first element three times to make nums = [4,4,8,13]. 4 has a frequency of 2.
+ * Example 3:
+ * Input: nums = [3,6,9], k = 2
+ * Output: 1
+ * Explanation: You can only increment any element at most two times. The maximum frequency of any element is 1.
+ * Constraints:
+ * 1 <= nums.length <= 10^3
+ * 1 <= nums[i] <= 10^3
+ * 0 <= k <= 10^3
+ *
+ * Steps to solve the problem:
+ * 1. Sort the array to make it easier to find the maximum frequency of an element.
+ * 2. Use a sliding window approach to find the maximum frequency of an element after performing at most k increment operations.
+ * 3. Initialize two pointers, left and right, to represent the current window of elements.
+ * 4. Initialize a variable to keep track of the current sum of the window and a variable to store the maximum frequency found.
+ * 5. Expand the window by moving the right pointer and adding the current element to the sum.
+ * 6. While the current sum is greater than the target value (the value of the right pointer multiplied by the window size),
+ *    shrink the window by moving the left pointer and subtracting the element at the left pointer from the sum.
+ * 7. Update the maximum frequency if the current window size is greater than the previously found maximum frequency.
+ * 8. Repeat steps 5 and 6 until the right pointer reaches the end of the array.
+ * 9. Return the maximum frequency found after evaluating all windows.
+ *
  * This class contains methods to find the most frequent element in an array and to find the maximum frequency
  * of an element after performing at most k increment operations.
  * Time Complexity: O(n^2) for the brute force method and O(n) for the HashMap method.
@@ -78,8 +111,10 @@ public class MostFrequentElement {
             // Formula: increments needed = (windowSize * target) - windowSum
             // If increments needed > k, we need to shrink the window from the left where k = permissible increments
             while (windowSize * target - windowSum > k) {
+                // Shrink the window from the left
                 windowSum -= nums[left];
                 left++;
+                // Update the window size after shrinking
                 windowSize = right - left + 1;
             }
             maxFrequency = Math.max(maxFrequency, windowSize);
