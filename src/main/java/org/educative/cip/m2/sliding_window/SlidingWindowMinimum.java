@@ -72,7 +72,7 @@ public class SlidingWindowMinimum {
         if (w > n) w = n;
 
         int currentWindowIndex = 0;
-        int[] result = new int[n - w + 1];
+        int[] result = new int[n - w + 1]; //output array to store the minimum values for each sliding window
         Deque<Integer> deque = new ArrayDeque<>();   // indices, values increasing
 
         for (int i = 0; i < n; i++) {

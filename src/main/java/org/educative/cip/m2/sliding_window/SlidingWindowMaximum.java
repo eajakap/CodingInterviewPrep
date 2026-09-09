@@ -88,7 +88,7 @@ public class SlidingWindowMaximum {
         if (w > n) w = n;
 
         int currentWindowIndex = 0;
-        int[] result = new int[n - w + 1];
+        int[] result = new int[n - w + 1]; // result array to store the maximum values for each sliding window
         Deque<Integer> deque = new ArrayDeque<>();   // indices, values decreasing
 
         for (int i = 0; i < n; i++) {
