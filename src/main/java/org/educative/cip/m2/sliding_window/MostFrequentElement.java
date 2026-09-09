@@ -97,36 +97,37 @@ public class MostFrequentElement {
 
     // Function to find the maximum frequency of an element in the array after performing at most k increment operations
     public static int maxFrequency(int[] nums, int k) {
-        Arrays.sort(nums); // sort the array to make it easier to find the maximum frequency
+        Arrays.sort(nums); // sort the array to make it easier to find the maximum frequency - Time Complexity: O(nlogn)
         int left = 0; // left pointer for the sliding window
         int windowSum = 0; // Sum of the elements in the current window
         int windowSize = 0; // Size of the current window
         int maxFrequency = 0; // Most frequent element in the current window
         long target = 0; // Target value to which we want to increment the elements in the current window
         for (int right = 0; right < nums.length; right++) {
-            target = nums[right];
-            windowSum += target;
-            windowSize = right - left + 1;
+            target = nums[right]; // Rightmost element in the current window is the target value to which we want to increment the elements in the current window
+            windowSum += target; // Add the rightmost element to the window sum
+            windowSize = right - left + 1; // Update the window size
             // Check if we can make all elements in the current window equal to nums[right] with at most k increments
             // Formula: increments needed = (windowSize * target) - windowSum
             // If increments needed > k, we need to shrink the window from the left where k = permissible increments
             while (windowSize * target - windowSum > k) {
                 // Shrink the window from the left
                 windowSum -= nums[left];
-                left++;
+                left++; // Move the left pointer to the right
                 // Update the window size after shrinking
                 windowSize = right - left + 1;
             }
+            // Update the maximum frequency found so far
             maxFrequency = Math.max(maxFrequency, windowSize);
         }
-
+        // Return the maximum frequency of an element after performing at most k increment operations
         return maxFrequency;
     }
 
     // Driver code
     public static void main(String[] args) {
         int[][] testCases = {
-                {1, 2, 4},
+                {1, 2, 3,6,8},
                 {1, 4, 8, 13},
                 {3, 6, 9},
                 {2, 3, 5},
