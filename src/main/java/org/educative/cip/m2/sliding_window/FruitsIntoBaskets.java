@@ -3,12 +3,56 @@ package org.educative.cip.m2.sliding_window;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
+ * Fruits Into Baskets
+ * Problem: You are visiting a farm that has a single row of fruit trees arranged from left to right.
+ * The trees are represented by an integer array fruits where fruits[i] is the type of fruit the ith tree produces.
+ * You want to collect as much fruit as possible. However, the owner has some strict rules that you must follow:
+ *  - You only have two baskets, and each basket can only hold a single type of fruit.
+ *    There is no limit on the amount of fruit each basket can hold.
+ *  - Starting from any tree of your choice, you must pick exactly one fruit from every tree (including the start tree)
+ *    while moving to the right. The picked fruits must fit in one of your baskets.
+ *  - Once you reach a tree with a fruit type that cannot fit in your baskets, you must stop.
+ * Given the integer array fruits, return the maximum number of fruits you can pick.
+ * Example 1:
+ * Input: fruits = [1,2,1]
+ * Output: 3
+ * Explanation: We can pick from all 3 trees.
+ * Example 2:
+ * Input: fruits = [0,1,2,2]
+ * Output: 3
+ * Explanation: We can pick from trees [1,2,2]. If we had started at the first tree, we would only pick from trees [0,1].
+ * Example 3:
+ * Input: fruits = [1,2,3,2,2]
+ * Output: 4
+ *  Explanation: We can pick from trees [2,3,2,2]. If we had started at the first tree, we would only pick from trees [1,2].
+ * Constraints:
+ *  - 1 <= fruits.length <= 10^3
+ *  - 0 <= fruits[i] < fruits.length
+ *
+ * Steps to solve the problem:
+ * 1. Use a sliding window approach to keep track of the current range of trees being considered.
+ * 2. Use a HashMap to count the frequency of each fruit type in the current window.
+ * 3. Expand the window by moving the right pointer and adding the current fruit to the HashMap.
+ * 4. If the HashMap contains more than two types of fruits, shrink the window from the left until there are at most two types of fruits in the HashMap.
+ * 5. Keep track of the maximum number of fruits collected during the process.
+ * 6. Return the maximum number of fruits collected after traversing the entire array.
+ *
  * Time Complexity: O(n) - We traverse the array once to find the maximum number of fruits that can be collected.
  * Space Complexity: O(1) - We use a constant amount of space for the baskets (at most 2 types of fruits).
  */
 public class FruitsIntoBaskets {
 
+    /**
+     * Returns the maximum number of fruits that can be collected while using at most two baskets.
+     *
+     * <p>The method keeps a sliding window over the tree row and tracks the fruit counts for at most two fruit types.
+     * When a third type appears, the left pointer moves forward until the window contains only two types again.</p>
+     *
+     * @param fruits the array of fruit types on each tree from left to right
+     * @return the maximum number of consecutive fruits that can be collected without exceeding two fruit types
+     * @implNote Time complexity is O(n) and space complexity is O(1), because there are at most two fruit types in the active window.
+     */
     public static int totalFruit(int[] fruits) {
         // Map to count the frequency of fruit types in the current window
         Map<Integer, Integer> baskets = new HashMap<>();
