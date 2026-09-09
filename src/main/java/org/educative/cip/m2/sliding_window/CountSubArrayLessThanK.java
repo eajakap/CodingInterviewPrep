@@ -1,5 +1,8 @@
 package org.educative.cip.m2.sliding_window;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Count Subarrays Less Than K
  * Problem: Given an integer array nums and an integer k,
@@ -84,6 +87,55 @@ public class CountSubArrayLessThanK {
         return result;
     }
 
+    /**
+     * Lists every contiguous subarray whose score is strictly less than {@code k}.
+     *
+     * <p>The method uses the same sliding-window invariant as {@link #countSubarrays(int[], long)}: while the current
+     * window violates the condition, it shrinks from the left. Once the window is valid, every subarray ending at the
+     * current right index and starting between {@code left} and the current index is also valid.</p>
+     *
+     * @param nums the input array
+     * @param k the threshold value for the score
+     * @return a list of all valid contiguous subarrays whose score is less than {@code k}
+     * @implNote Time complexity is O(n^2) in the worst case because it enumerates each valid subarray, while the sliding-window
+     * logic itself is O(n). Space complexity is O(1) extra besides the output list.
+     */
+    public List<List<Integer>> listSubarrays(int[] nums, long k) {
+        // k threshold is given as long, but the array elements are int.
+        // So, we need to be careful with the multiplication to avoid overflow.
+        int n = nums.length;
+        int left = 0; // start index of the sliding window
+        long runningSum = 0; // This will hold the sum of the current window
+
+        List<List<Integer>> result = new ArrayList<>(); // This will hold the list of valid subarrays
+
+        for (int right = 0; right < n; right++) {
+            runningSum += nums[right];
+            // Calculate the score for the current window
+            long score = runningSum * (right - left + 1);
+            // Shrink the window from the left if the sum * window size exceeds k
+            while (score >= k && left <= right) {
+                // Shrink the window from the left
+                runningSum -= nums[left]; // Remove the leftmost element from the sum
+                left++; // Move the left pointer to the right
+                score = runningSum * (right - left + 1); // Recalculate the score after shrinking the window
+            }
+
+            // At this point, all subarrays ending at 'right' and starting from 'left' to 'right' are valid
+            // Now all subarrays ending at 'right' and starting from 'left' to 'right' are valid
+            for (int start = left; start <= right; start++) {
+                List<Integer> sub = new ArrayList<>();
+                for (int i = start; i <= right; i++) {
+                    sub.add(nums[i]);
+                }
+                result.add(sub);
+            }
+        }
+
+        // Replace this placeholder return statement with your code
+        return result;
+    }
+
     // Driver code
     public static void main(String[] args) {
         CountSubArrayLessThanK sol = new CountSubArrayLessThanK();
@@ -112,7 +164,9 @@ public class CountSubArrayLessThanK {
             System.out.println((i + 1) + ".\tnums: " + java.util.Arrays.toString(nums));
             System.out.println("\tk: " + k);
             System.out.println("\n\tCount of subarrays = " + sol.countSubarrays(nums, k));
+            System.out.println("\tList subarrays = " + sol.listSubarrays(nums, k));
             System.out.println("-".repeat(100));
+
         }
     }
 
