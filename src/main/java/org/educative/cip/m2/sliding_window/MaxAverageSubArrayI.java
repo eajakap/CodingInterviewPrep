@@ -3,10 +3,34 @@ package org.educative.cip.m2.sliding_window;
 public class MaxAverageSubArrayI {
 
     /**
+     * Maximum Average Subarray I
+     * Given an integer array nums consisting of n elements, find the contiguous subarray of given length k
+     * that has the maximum average value and return this value.
+     * Any answer with a calculation error less than 10-5 will be accepted.
+     * Example 1:
+     * Input: nums = [1,12,-5,-6,50,3], k = 4
+     * Output: 12.75000
+     * Explanation: Maximum average is (12-5-6+50)/4 = 51/4 = 12.75
+     * Example 2:
+     * Input: nums = [5], k = 1
+     * Output: 5.00000
+     * Constraints:
+     * n == nums.length
+     * 1 <= k <= n <= 10^5
+     * -10^4 <= nums[i] <= 10^4
+     *
+     * Steps to solve the problem:
+     * 1. Initialize two pointers, left and right, to represent the current window of elements.
+     * 2. Initialize a variable to keep track of the current sum of the window and a variable to store the maximum sum found.
+     * 3. Calculate the sum of the first window of size k.
+     * 4. Slide the window across the array by moving the right pointer and adding the current element to the sum, while subtracting the element at the left pointer from the sum.
+     * 5. Update the maximum sum if the current sum is greater than the previously found maximum sum.
+     * 6. Repeat step 4 until the right pointer reaches the end of the array.
+     * 7. Return the maximum sum divided by k to get the maximum average.
+     *
      * Time Complexity: O(n), where n is the length of the array.
      * We traverse through the array once.
      * Space Complexity: O(1), as we are using constant space for pointers and counters.
-     * Given an integer array nums consisting of n elements, find the contiguous subarray of given length k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
      */
     public static double findMaxAverage(int[] nums, int k) {
 
@@ -25,8 +49,8 @@ public class MaxAverageSubArrayI {
         // Remaining elements in the array after the first window
         // Remove the leftmost element and add the rightmost element to the sum for each window
         while (right < nums.length) {
-            sum = sum - nums[left] + nums[right];
-            double average = sum / (double) k;
+            // shrinking from left and expanding to right
+            sum += nums[right] - nums[left];
             maxSum = Math.max(maxSum, sum);
             left++;
             right++;
