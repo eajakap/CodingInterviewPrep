@@ -1,6 +1,8 @@
 package org.educative.cip.m2.sliding_window;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Minimum Size Subarray Sum
@@ -54,11 +56,20 @@ public class MinSizeSubArraySum {
         int sum = 0; // current sum of the window
         int end = nums.length; // length of the array
         int right = 0; // end of the window
+        List<List<Integer>> result = new ArrayList<>(); // to store the result subarray
         while (right < end) { // expand the window to the right
             sum += nums[right]; // add the current element to the sum
             while (sum >= target) { // shrink the window from the left while the sum is greater than or equal to the target
                 // update the minimum window size if the current window is smaller
                 windowSize = Math.min(windowSize, right - left + 1);
+                if (sum == target) {
+                    int ws = left, we = right;
+                    List<Integer> elements = new ArrayList<>();
+                    for (int i = ws; i <= we; i++) {
+                        elements.add(nums[i]);
+                    }
+                    result.add(elements);
+                }
                 // shrink the window from the left
                 sum -= nums[left];
                 // move the left pointer to the right
@@ -67,6 +78,7 @@ public class MinSizeSubArraySum {
             // expand the window to the right
             right++;
         }
+        System.out.println("\tOutput Array: " + result);
         // return the minimum window size found, or 0 if no valid window was found
         return windowSize == Integer.MAX_VALUE ? 0 : windowSize;
     }
