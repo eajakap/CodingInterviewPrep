@@ -6,25 +6,25 @@ import java.util.Deque;
 import java.util.stream.Stream;
 
 /**
- * Sliding Window Maximum
- * Given an array of integers and a window size, find the maximum value in each sliding window.
+ * Sliding Window Minimum
+ * Given an array of integers and a window size, find the minimum value in each sliding window.
  * For example, given the array [1, 3, -1, -3, 5, 3, 6, 7] and a window size of 3,
- * the maximum values in each sliding window are [3, 3, 5, 5, 6, 7].
+ * the minimum values in each sliding window are [1, -1, -3, -3, 3, 3].
  *
  * Steps to solve the problem:
  * 1. Initialize a deque to store indices of elements in the current window.
  * 2. Iterate through the array:
- *    a. Remove indices that are out of the current window from the front of the deque.
- *    b. Remove indices of elements that are smaller than the current element from the back of the deque.
+ *    a. Remove indices from the front of the deque that are out of the current window.
+ *    b. Remove indices from the back of the deque while the current element is smaller than the elements at those indices.
  *    c. Add the current index to the back of the deque.
- *    d. If the current index is greater than or equal to the window size -1,
- *       add the element at the front of the deque to the result array as it is the maximum of the current window.
- * 3. Return the result array containing the maximum values for each sliding window.
+ *    d. If the current index is greater than or equal to the window size - 1,
+ *    add the element at the front of the deque to the result array as it represents the minimum of the current window.
+ * 3. Return the result array containing the minimum values for each sliding window.
  *
  * Time Complexity: O(n) - We traverse the array once, and each element is added and removed from the deque at most once.
  * Space Complexity: O(n-w) - The deque can hold at most n-w elements, where w is the window size.
  */
-public class SlidingWindowMaximum {
+public class SlidingWindowMinimum {
     private enum SolutionType {
         BRUTE_FORCE,
         OPTIMIZED
@@ -33,16 +33,8 @@ public class SlidingWindowMaximum {
     /*
      * This is Brute Force solution with O(n * w) time complexity,
      * where n is the length of the input array and w is the window size.
-     * 1. Initialize two pointers, left and right, to represent the current window.
-     * 2. Iterate through the array while the right pointer is less than the length of the array:
-     *    a. For each window, find the maximum value by iterating from left to right and comparing the elements.
-     *    b. Store the maximum value in the result array at the index corresponding to the left pointer.
-     *    c. Increment both left and right pointers to slide the window to the right.
-     * 3. Return the result array containing the maximum values for each sliding window.
-     * Time Complexity: O(n * w) - For each of the n-w+1 windows, we perform a linear scan of size w to find the maximum.
-     * Space Complexity: O(n-w) - The result array holds the maximum values for each sliding window, which is of size n-w+1.
      */
-    public static int[] findMaxSlidingWindowBruteForce(int[] nums, int w) {
+    public static int[] findMinSlidingWindowBruteForce(int[] nums, int w) {
         if ( w <= 0 || nums == null || nums.length == 0) {
             return new int[0];
         }
@@ -53,11 +45,11 @@ public class SlidingWindowMaximum {
         int right = w-1;
         int[] result = new int[nums.length - w + 1];
         while (right < nums.length) {
-            int max = Integer.MIN_VALUE;
+            int min = Integer.MAX_VALUE;
             for (int i = left; i <= right; i++) {
-                max = Math.max(max, nums[i]);
+                min = Math.min(min, nums[i]);
             }
-            result[left] = max;      // left is already the output index
+            result[left] = min;      // left is already the output index
             left++;
             right++;
         }
@@ -67,21 +59,13 @@ public class SlidingWindowMaximum {
     /*
      * This is an optimized solution with O(n) time complexity,
      * where n is the length of the input array.
-     * We use a deque to keep track of the indices of the maximum elements in the current window.
-     * Steps:
-     * 1. Initialize a deque to store indices of elements in the current window.
-     * 2. Iterate through the array:
-     *    a. Remove indices that are out of the current window from the front of the deque.
-     *    b. Remove indices of elements that are smaller than the current element from the back of the deque.
-     *    c. Add the current index to the back of the deque.
-     *    d. If the current index is greater than or equal to the window size -1,
-     *       add the element at the front of the deque to the result array as it is the maximum of the current window.
-     * 3. Return the result array containing the maximum values for each sliding window.
-     *
-     * Time Complexity: O(n) - We traverse the array once, and each element is added and removed from the deque at most once.
-     * Space Complexity: O(n-w) - The deque can hold at most n-w elements, where w is the window size.
+     * We use a deque to keep track of the indices of the minimum elements in the current window.
      */
-    public static int[] findMaxSlidingWindow(int[] nums, int w) {
+    // This is an optimized solution with O(n) time complexity,
+    // where n is the length of the input array.
+    // We use a deque to keep track of the indices of the minimum elements in the current window.
+
+    public static int[] findMinSlidingWindow(int[] nums, int w) {
         if (nums == null || nums.length == 0 || w <= 0) return new int[0];
         int n = nums.length;
         if (n == 1) return nums;
@@ -89,7 +73,7 @@ public class SlidingWindowMaximum {
 
         int currentWindowIndex = 0;
         int[] result = new int[n - w + 1];
-        Deque<Integer> deque = new ArrayDeque<>();   // indices, values decreasing
+        Deque<Integer> deque = new ArrayDeque<>();   // indices, values increasing
 
         for (int i = 0; i < n; i++) {
 //            System.out.println("\tIn:i = " + i + ", windowIndex = " + currentWindowIndex + ", deque = " + deque + ", result = " + Arrays.toString(result));
@@ -97,15 +81,15 @@ public class SlidingWindowMaximum {
             if (!deque.isEmpty() && deque.peekFirst() <= i - w) {
                 deque.pollFirst(); // remove the index of the element that is out of the current window
             }
-            // 2. anything smaller than nums[i] can never be a max again
-            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
-                deque.pollLast(); // remove the index of the element that is smaller than the current element
+            // 2. anything larger than nums[i] can never be a min again
+            while (!deque.isEmpty() && nums[deque.peekLast()] >= nums[i]) {
+                deque.pollLast(); // remove the index of the element that is larger than the current element
             }
             deque.offerLast(i); // add the index of the current element to the deque
 
             // 3. first full window ends at index w-1
             if (i >= w - 1) {
-                // the first element in the deque is the index of the maximum element in the current window
+                // the first element in the deque is the index of the minimum element in the current window
                 result[i - w + 1] = nums[deque.peekFirst()];
                 currentWindowIndex++;
             }
@@ -114,12 +98,12 @@ public class SlidingWindowMaximum {
         return result;
     }
 
-    public static int[] findMaxSlidingWindow(int[] nums, int w, SolutionType solutionType) {
+    public static int[] findMinSlidingWindow(int[] nums, int w, SolutionType solutionType) {
         switch (solutionType) {
             case BRUTE_FORCE:
-                return findMaxSlidingWindowBruteForce(nums, w);
+                return findMinSlidingWindowBruteForce(nums, w);
             case OPTIMIZED:
-                return findMaxSlidingWindow(nums, w);
+                return findMinSlidingWindow(nums, w);
             default:
                 throw new IllegalArgumentException("Invalid solution type: " + solutionType);
         }
@@ -145,8 +129,8 @@ public class SlidingWindowMaximum {
         for (int i = 0; i < numLists.length; i++) {
             System.out.println(i + 1 + ".\tInput array:\t" + Arrays.toString(numLists[i]));
             System.out.println("\tWindow size:\t" + windowSizes[i]);
-            System.out.println("\tMaximum in each sliding window (optimized):\t" + Arrays.toString(findMaxSlidingWindow(numLists[i], windowSizes[i], SolutionType.OPTIMIZED)));
-            System.out.println("\tMaximum in each sliding window (brute force):\t" + Arrays.toString(findMaxSlidingWindow(numLists[i], windowSizes[i], SolutionType.BRUTE_FORCE)));
+            System.out.println("\tMinimum in each sliding window (optimized):\t" + Arrays.toString(findMinSlidingWindow(numLists[i], windowSizes[i], SolutionType.OPTIMIZED)));
+            System.out.println("\tMinimum in each sliding window (brute force):\t" + Arrays.toString(findMinSlidingWindow(numLists[i], windowSizes[i], SolutionType.BRUTE_FORCE)));
             Stream.generate(() -> "-").limit(100).forEach(System.out::print);
             System.out.println();
         }
