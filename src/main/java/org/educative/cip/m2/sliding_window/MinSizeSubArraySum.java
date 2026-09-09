@@ -83,6 +83,18 @@ public class MinSizeSubArraySum {
         return windowSize == Integer.MAX_VALUE ? 0 : windowSize;
     }
 
+    /**
+     * Finds the smallest contiguous subarray whose sum is at least {@code target}.
+     *
+     * <p>This variant follows the classic sliding-window pattern: extend the right boundary to include more values,
+     * then shrink from the left while the running sum still satisfies the target. After evaluating each valid window,
+     * the shortest valid length is kept.</p>
+     *
+     * @param target the minimum sum required for a valid subarray
+     * @param nums the input array of positive integers
+     * @return the smallest subarray length whose sum is at least {@code target}, or {@code 0} if no such subarray exists
+     * @implNote Time complexity is O(n) and space complexity is O(1).
+     */
     public static int minSubArrayLenEducative(int target, int[] nums) {
         // Initializing windowSize to a max number
         int windowSize = Integer.MAX_VALUE;
