@@ -5,15 +5,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Time Complexity: O(n), where n is the length of the array.
- * We traverse through the array once.
+ * Subarrays with K Distinct Integers
+ * Problem: Given an integer array arr and an integer k,
+ *          return the number of subarrays with exactly k distinct integers.
+ * Example 1:
+ * Input: arr = [1,2,1,2,3], k = 2
+ * Output: 7
+ * Explanation: Subarrays formed with exactly 2 different integers: [1,2], [2,1], [1,2], [2,3], [1,2,1], [2,1,2], [1,2,3]
+ * Example 2:
+ * Input: arr = [1,2,1,3,4], k = 3
+ * Output: 3
+ * Explanation: Subarrays formed with exactly 3 different integers: [1,2,1,3], [2,1,3], [1,3,4]
+ * Constraints:
+ * 1 <= arr.length <= 2 * 10^4
+ * 1 <= arr[i], k <= arr.length
+ *
+ * Steps to solve the problem:
+ * 1. Use a sliding window approach to keep track of the current range of elements being considered.
+ * 2. Use a HashMap to count the frequency of each integer in the current window.
+ * 3. Expand the window by moving the right pointer and adding the current integer to the HashMap.
+ * 4. If the HashMap contains more than k distinct integers, shrink the window from the left until there are at most k distinct integers in the HashMap.
+ * 5. Keep track of the number of valid subarrays formed during the process.
+ * 6. Return the total count of valid subarrays after traversing the entire array.
+ *
+ * Time Complexity: O(n), where n is the length of the array. We traverse through the array once.
  * Space Complexity: O(n), as we are using a frequency array to keep track of distinct integers.
- * Given an integer array arr and an integer k, return the number of subarrays with at most k distinct integers.
  */
-public class KDistinctIntegerSubArrays {
+public class SubArraysWithKDistinctIntegers {
 
     public static int subarraysWithKDistinctV2(int[] arr, int k) {
-        // Number of subarrays with exactly k distinct integers=atMostKDistinct(k)−atMostKDistinct(k−1)
+        // Number of subarrays with exactly k distinct integers=atMostKDistinct(nums,k)−atMostKDistinct(nums,k−1)
         return atMostKDistinct(arr, k) - atMostKDistinct(arr, k - 1);
     }
 
@@ -28,13 +49,14 @@ public class KDistinctIntegerSubArrays {
             // k - allowed distinct integers,
             // if we have more than k distinct integers, we need to shrink the window from the left
             while (freq.size() > k) {
-                freq.put(nums[left], freq.get(nums[left]) - 1);
+                // Shrink the window from the left and update the frequency map
+                freq.put(nums[left], freq.get(nums[left]) - 1); // Decrease the frequency of the leftmost element
                 if (freq.get(nums[left]) == 0) {
-                    freq.remove(nums[left]);
+                    freq.remove(nums[left]); // Remove the element from the map if its frequency becomes 0
                 }
-                left++;
+                left++; // Move the left pointer to the right
             }
-
+            // Count the number of subarrays with at most k distinct integers
             count += right - left + 1;
         }
 
@@ -42,7 +64,7 @@ public class KDistinctIntegerSubArrays {
     }
 
     public static int subarraysWithKDistinct(int[] nums, int k) {
-        // Number of subarrays with exactly k distinct integers=atMostK(k)−atMostK(k−1)
+        // Number of subarrays with exactly k distinct integers=atMostK(nums, k)−atMostK(nums, k−1)
         return atMostK(nums, k) - atMostK(nums, k - 1);
     }
 
