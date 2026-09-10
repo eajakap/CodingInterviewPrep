@@ -115,13 +115,14 @@ public class BinarySubarraysWithSum {
         while (right < nums.length) {
             currentSum += nums[right];
             // Shrink the window from the left if the current sum exceeds the goal
-            while (currentSum > goal && left <= right) {
+            while (left <= right && currentSum > goal) {
                 currentSum -= nums[left];
                 left++;
                 prefixZeros = 0;
             }
             // If the current sum equals the goal, increment the count
             while (left < right && nums[left] == 0 && currentSum == goal) {
+                // Shrink the window from the left and count the leading zeros
                 prefixZeros++;
                 currentSum -= nums[left];
                 left++;
