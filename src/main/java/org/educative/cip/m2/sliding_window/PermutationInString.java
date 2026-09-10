@@ -57,8 +57,8 @@ public class PermutationInString {
         // Slide the window over s2 and update the frequency array for s2
         for (int i = 0; i < s2.length() - s1.length(); i++) {
             // Update the frequency array for s2 by adding the new character and removing the old character
-            s2Count[s2.charAt(i + s1.length()) - 'a']++;
-            s2Count[s2.charAt(i) - 'a']--;
+            s2Count[s2.charAt(i + s1.length()) - 'a']++; // i + s1.length() is the new character entering the window (expanding from the rightmost character of the previous window)
+            s2Count[s2.charAt(i) - 'a']--; // i is the old character leaving the window (the leftmost character of the previous window)
             // Check if the current window's frequency matches s1's frequency
             if (matches(s1Count, s2Count)) {
                 return true;
