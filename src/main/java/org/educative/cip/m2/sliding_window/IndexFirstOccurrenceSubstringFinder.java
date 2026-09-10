@@ -20,6 +20,15 @@ public class IndexFirstOccurrenceSubstringFinder {
 
     /**
      * Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+     * Steps to solve the problem:
+     * 1. Check if needle is empty. If it is, return 0 as per the problem statement.
+     * 2. Check if haystack is empty or shorter than needle. If it is, return -1 as needle cannot be found in haystack.
+     * 3. Iterate through haystack, checking each substring of length equal to needle.
+     * 4. If a substring matches needle, return the starting index of that substring.
+     * 5. If no substring matches needle, return -1.
+     *
+     * Time Complexity: O(n * m), where n is the length of haystack and m is the length of needle. In the worst case, we may need to check every substring of haystack.
+     * Space Complexity: O(1), as we are not using any extra space.
      *
      * @param haystack the string to search within
      * @param needle   the substring to search for
