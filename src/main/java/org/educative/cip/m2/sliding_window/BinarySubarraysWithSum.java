@@ -38,7 +38,8 @@ public class BinarySubarraysWithSum {
         switch (solutionType) {
             case BRUTE_FORCE:
                 // Implement brute force solution if needed
-                break;
+                return numSubarraysWithSumBruteForce(nums, goal);
+                // break; // Unreachable code after return
             case SLIDING_WINDOW:
                 // Implement sliding window solution if needed
                 return numSubarraysWithSumSlidingWindow(nums, goal);
@@ -46,7 +47,6 @@ public class BinarySubarraysWithSum {
             default:
                 return numSubarraysWithSumPrefixSum(nums, goal);
         }
-        return 0; // Default return value if no solution type matches
     }
 
     /**
@@ -168,10 +168,10 @@ public class BinarySubarraysWithSum {
         BinarySubarraysWithSum sol = new BinarySubarraysWithSum();
 
         int[][] arrays = {
+                {0,1,0,1,0,1},
                 {1,0,1,0,1},
                 {0,0,0,0,0},
                 {1,1,1},
-                {0,1,0,1,0,1},
                 {1}
         };
 
