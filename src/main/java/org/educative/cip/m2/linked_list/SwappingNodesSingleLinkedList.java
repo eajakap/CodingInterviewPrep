@@ -218,6 +218,17 @@ public class SwappingNodesSingleLinkedList {
     /**
      * Swaps the values of the k-th node from the beginning and the k-th node from the end.
      *
+     * Steps:
+     * 1. Traverse the list to find the k-th node from the front and the k-th node from the back.
+     *    - Use a counter to track the current node's position.
+     *    - When the counter reaches k, store the current node as the front node and start moving an end pointer from the head.
+     *    - Continue traversing the list, moving the end pointer one step for each subsequent node visited until the end of the list is reached.
+     * 2. Swap their values.
+     * 3. Return the head of the modified list.
+     *
+     * Time Complexity: O(n), where n is the number of nodes in the linked list, since we traverse the list once.
+     * Space Complexity: O(1), as we use a constant amount of extra space for pointers and counters.
+     *
      * @param head the head of the linked list
      * @param k the position from the front to swap with the equally indexed node from the back
      * @return the head of the list after the swap
