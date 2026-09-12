@@ -185,11 +185,12 @@ public class ReverseNodesinEvenLengthGroups {
      */
     public static ListNode reverseEvenLengthGroups(ListNode head)
     {
-        ListNode prev = head;
+        ListNode prev = head; // prev is the last node of the previous group, at the start it is the head of the list
         ListNode node, reverse, currNext, curr, prevNext = null;
-        int groupLen = 2;
-        int numNodes = 0;
-        while(prev.next!= null)
+        int groupLen = 2; // groupLen is the length of the current group, starting from 2 for second group as the first group is of length 1
+        int numNodes = 0; // numNodes is the number of nodes in the current group
+        // First Group is of length 1, so we start with groupLen = 2 for the second group
+        while(prev.next!= null) // starts from the second group, as the first group is of length 1
         {
             node = prev; // node is the last node of the previous group
             numNodes = 0; // numNodes is the number of nodes in the current group
@@ -199,36 +200,36 @@ public class ReverseNodesinEvenLengthGroups {
                     // If we reach the end of the list, we break out of the loop
                     break;
                 }
-                numNodes += 1;
-                node=node.next;
+                numNodes += 1; // We count the number of nodes in the current group
+                node=node.next; // We move the node pointer to the next node in the current group
             }
 
             if(numNodes % 2 != 0) {
-                prev = node;
+                prev = node; // If the number of nodes in the current group is odd, we do not reverse the group and move prev to the last node of the current group
             } else {
                 // If the number of nodes in the current group is even, we reverse the group
-                reverse = node.next;
-                curr = prev.next;
+                reverse = node.next; // reverse is the first node of the next group, which will be connected to the last node of the current group after reversing
+                curr = prev.next; // curr is the first node of the current group, which will be reversed
                 for(int j=0; j < numNodes;j++) {
                     // We reverse the nodes in the current group by changing their next pointers
-                    currNext = curr.next;
-                    curr.next = reverse;
-                    reverse = curr;
-                    curr = currNext;
+                    currNext = curr.next; // currNext is the next node of the current node, which will be used to move to the next node in the group
+                    curr.next = reverse; // We change the next pointer of the current node to point to the last node of the previous group, which is reverse
+                    reverse = curr; // We move the reverse pointer to the current node, which will be the last node of the current group after reversing
+                    curr = currNext; // We move the curr pointer to the next node in the group, which is currNext
                 }
                 // After reversing the group, we connect the previous group to the current group
-                prevNext = prev.next;
-                prev.next = node;
-                prev = prevNext;
+                prevNext = prev.next; // prevNext is the first node of the current group, which will be connected to the last node of the previous group after reversing
+                prev.next = node; // We change the next pointer of the last node of the previous group to point to the last node of the current group, which is node
+                prev = prevNext; // We move the prev pointer to the first node of the current group, which will be the last node of the current group after reversing
             }
-            // We increment the group length for the next group
-            groupLen += 1;
+            groupLen += 1; // We increment the group length for the next group
         }
-        return head;
+        return head; // We return the head of the modified list
     }
 
     public static void main(String[] args) {
         List<List<Integer>> inputLists = Arrays.asList(
+                Arrays.asList(5, 2, 6, 3, 9, 1, 7, 3),
                 Arrays.asList(1, 2, 3, 4),
                 Arrays.asList(10, 11, 12, 13, 14),
                 Arrays.asList(15),
