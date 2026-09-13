@@ -133,6 +133,7 @@ public class RotateList {
         k = k % length;
         int stepsToNewHead = length - k;
         ListNode newTail = tail;
+        // Move to the new tail position
         while (stepsToNewHead-- > 0) {
             newTail = newTail.next;
         }
@@ -193,13 +194,14 @@ public class RotateList {
 
         List<List<Integer>> inputLists = Arrays.asList(
                 Arrays.asList(1, 1, 2, 2, 3, -1, 10, 12),
+                Arrays.asList(8, 3, 6, 1, 7),
                 Arrays.asList(10, 20, -22, 21, -12),
                 Arrays.asList(1, 1, 1),
                 Arrays.asList(-2, -5, -6, 0, -1, -4),
                 Arrays.asList(3, 1, 5, 7, -4, -2, -1, -6)
         );
 
-        List<Integer> kList = Arrays.asList(3, 2, 1, 4, 7);
+        List<Integer> kList = Arrays.asList(3, 3, 2, 1, 4, 7);
 
         for (int i = 0; i < inputLists.size(); i++) {
             LinkedList obj = new LinkedList(inputLists.get(i));
