@@ -165,24 +165,28 @@ public class SwapNodesInPairs {
      */
     public static ListNode swapPairsUsingReferences(ListNode head) {
         if  (head == null || head.next == null) {
+            // If the list has fewer than two nodes, return the head as is.
             return head;
         }
-
+        // At this point, we know the list has at least two nodes, so we can proceed with swapping.
+        // Create a dummy node that points to the head of the list. This simplifies edge cases.
         ListNode dummy = new ListNode(0);
+        // Set the next of the dummy node to the head of the list.
         dummy.next = head;
+        // Initialize a pointer 'prev' to the dummy node. This will be used to keep track of the node before the pair being swapped.
         ListNode prev = dummy;
-
+        // Iterate through the list in pairs, swapping the references of each pair of nodes.
         while (prev.next != null && prev.next.next != null) {
-            ListNode firstNode = prev.next;
-            ListNode secondNode = firstNode.next;
+            ListNode firstNode = prev.next; // The first node of the pair to be swapped
+            ListNode secondNode = firstNode.next; // The second node of the pair to be swapped
 
-            firstNode.next = secondNode.next;
-            secondNode.next = firstNode;
-            prev.next = secondNode;
+            firstNode.next = secondNode.next; // Link the first node to the node after the second node
+            secondNode.next = firstNode; // Link the second node to the first node, completing the swap
+            prev.next = secondNode; // Link the previous node to the new first node of the swapped pair
 
-            prev = firstNode;
+            prev = firstNode; // Move the 'prev' pointer to the end of the swapped pair for the next iteration
         }
-
+        // Return the new head of the modified linked list, which is the next of the dummy node.
         return dummy.next;
     }
 
