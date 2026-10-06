@@ -8,6 +8,42 @@ import java.util.List;
  * Space Complexity: O(n) - We use a character array to store the string.
  */
 public class MinMovesPalindrome {
+/*
+ * Pseudocode:
+    public int minMovesToMakePalindrome(String s) {
+        # Convert the input string into a character array to allow for in-place swaps.
+
+        # Initialize a variable to keep track of the total number of swaps (moves) performed.
+
+        # Use two pointers to iterate through the array:
+        # 'left' starting from the beginning and 'right' starting from the end.
+        # Continue while 'left' is less than 'right'.
+
+            # Create a search pointer 'k' and initialize it to the current 'right' position.
+
+            # Search for a character matching the one at the 'left' position by moving 'k' backwards.
+            # Iterate while 'k' is greater than 'left'.
+
+                # If a match for the character at 'left' is found at index 'k':
+
+                    # Perform adjacent swaps to move the character at index 'k' to the current 'right' position.
+                        # For each step from 'k' to 'right', swap the current character with the next one.
+                        # Increment the total move count for each swap performed.
+
+                    # Move the 'right' pointer inward, as this character pair is now correctly placed.
+
+                    # Exit the inner search loop since the match has been handled.
+
+            # If the search pointer 'k' reached the 'left' pointer without finding a match:
+                # This indicates the character at 'left' is the one that belongs in the middle of the palindrome.
+
+                # Calculate the number of moves required to shift this character to the center of the string.
+                # The center index is roughly half the length of the string.
+                # Add this distance to the total move count.
+
+        # Return the final count of moves required to make the string a palindrome.
+    }
+*/
     /**
      * This method calculates the minimum number of adjacent swaps required to convert a given string into a palindrome.
      * It uses a two-pointer approach, where one pointer starts from the beginning of the string and the other from the end.
