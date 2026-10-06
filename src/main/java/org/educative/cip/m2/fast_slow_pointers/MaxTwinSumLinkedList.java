@@ -3,7 +3,22 @@ package org.educative.cip.m2.fast_slow_pointers;
 import java.util.Arrays;
 import java.util.List;
 
+
 /*
+ * Given a singly linked list of even length, return the maximum twin sum of the linked list.
+ * A twin sum is defined as the sum of a node and its twin node, where the twin node is the node
+ * that is equidistant from the end of the list. For example, in a list of length 4, the first node's
+ * twin is the last node, and the second node's twin is the third node.
+ *
+ * Example:
+ * Input: head = [1,2,3,4]
+ * Output: 5
+ * Explanation: The twin sums are (1 + 4) = 5 and (2 + 3) = 5. The maximum twin sum is 5.
+ *
+ * Constraints:
+ * - The number of nodes in the list is even.
+ * - The number of nodes in the list is in the range [2, 10^3].
+ * - 1 <= Node.val <= 10^3
  * Time Complexity: O(n) - We traverse the linked list once to find the maximum twin sum.
  * Space Complexity: O(1) - We use a constant amount of space for pointers.
  */
@@ -64,6 +79,13 @@ public class MaxTwinSumLinkedList {
     }
 
     static class Solution {
+        /*
+         * Function to calculate the maximum twin sum of a linked list
+         * TIME COMPLEXITY: O(n) - We traverse the list to find the middle,
+         *                        reverse the second half,
+         *                        and then calculate the twin sums.
+         * SPACE COMPLEXITY: O(1) - We use a constant amount of extra space.
+         */
         public static int twinSum(ListNode head) {
             // Initialize fast and slow pointers at the head of the linked list
             ListNode slow = head;
