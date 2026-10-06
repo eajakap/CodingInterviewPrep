@@ -29,8 +29,8 @@ public class ThreeSum {
         // Time Complexity: O(n^2)
         // Outer Loop: O(n)
         for (int i = 0; i < n - 2; i++) {
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
-            if (nums[i] > 0) break;
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // Skip duplicate elements to avoid duplicate triplets
+            if (nums[i] > 0) break; // target sum is 0, if the first number is greater than 0, no need to continue
             int left = i + 1;
             int right = n - 1;
             // Inner Loop: O(n)
@@ -42,10 +42,10 @@ public class ThreeSum {
                     right--;
                 } else {
                     result.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    while (left < right && nums[left] == nums[left + 1]) left++;
-                    while (left < right && nums[right] == nums[right - 1]) right--;
-                    left++;
-                    right--;
+                    while (left < right && nums[left] == nums[left + 1]) left++; // skip duplicate elements to avoid duplicate triplets from left side
+                    while (left < right && nums[right] == nums[right - 1]) right--; // skip duplicate elements to avoid duplicate triplets from right side
+                    left++; // move left pointer to the right
+                    right--; // move right pointer to the left
                 }
             }
         }
@@ -56,6 +56,7 @@ public class ThreeSum {
     public static void main(String[] args) {
         ThreeSum sol = new ThreeSum();
         int[][] testCases = {
+                {10,9,2,3,4},
                 {-2, 0, 1, 1, 2},
                 {1, -1, -1, 0},
                 {-4, -2, -1, 0, 1, 2, 3, 4},
