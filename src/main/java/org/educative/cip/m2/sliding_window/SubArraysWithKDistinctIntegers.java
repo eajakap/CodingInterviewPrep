@@ -24,7 +24,8 @@ import java.util.Map;
  * 1. Use a sliding window approach to keep track of the current range of elements being considered.
  * 2. Use a HashMap to count the frequency of each integer in the current window.
  * 3. Expand the window by moving the right pointer and adding the current integer to the HashMap.
- * 4. If the HashMap contains more than k distinct integers, shrink the window from the left until there are at most k distinct integers in the HashMap.
+ * 4. If the HashMap contains more than k distinct integers, shrink the window from the left
+ *    until there are at most k distinct integers in the HashMap.
  * 5. Keep track of the number of valid subarrays formed during the process.
  * 6. Return the total count of valid subarrays after traversing the entire array.
  *
@@ -34,7 +35,7 @@ import java.util.Map;
 public class SubArraysWithKDistinctIntegers {
 
     public static int subarraysWithKDistinctV2(int[] arr, int k) {
-        // Number of subarrays with exactly k distinct integers=atMostKDistinct(nums,k)−atMostKDistinct(nums,k−1)
+        // Number of subarrays with exactly k distinct integers = atMostKDistinct(nums,k) − atMostKDistinct(nums,k−1)
         return atMostKDistinct(arr, k) - atMostKDistinct(arr, k - 1);
     }
 
@@ -64,7 +65,7 @@ public class SubArraysWithKDistinctIntegers {
     }
 
     public static int subarraysWithKDistinct(int[] nums, int k) {
-        // Number of subarrays with exactly k distinct integers=atMostK(nums, k)−atMostK(nums, k−1)
+        // Number of subarrays with exactly k distinct integers = atMostK(nums, k)−atMostK(nums, k−1)
         return atMostK(nums, k) - atMostK(nums, k - 1);
     }
 
