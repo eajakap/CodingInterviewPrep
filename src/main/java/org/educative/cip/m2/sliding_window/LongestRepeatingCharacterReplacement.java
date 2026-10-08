@@ -60,7 +60,7 @@ public class LongestRepeatingCharacterReplacement {
             case BRUTE_FORCE:
                 return longestRepeatingCharacterReplacementBruteForce(s, k);
             case SLIDING_WINDOW:
-                return longestRepeatingCharacterReplacement(s, k);
+                return longestRepeatingCharacterReplacementSlidingWindow(s, k);
             default:
                 throw new IllegalArgumentException("Invalid solution approach: " + approach);
         }
@@ -76,7 +76,7 @@ public class LongestRepeatingCharacterReplacement {
      * @return the length of the longest substring that can be transformed into a single repeating character
      * @implNote Time complexity is O(n^3) and space complexity is O(1).
      */
-    public static int longestRepeatingCharacterReplacementBruteForce(String s, int k) {
+    private static int longestRepeatingCharacterReplacementBruteForce(String s, int k) {
         int n = s.length();
         int longest = 0;
 
@@ -121,7 +121,7 @@ public class LongestRepeatingCharacterReplacement {
      * @return the length of the longest substring that can be made uniform with at most {@code k} replacements
      * @implNote Time complexity is O(n) and space complexity is O(1).
      */
-    public static int longestRepeatingCharacterReplacement(String s, int k) {
+    private static int longestRepeatingCharacterReplacementSlidingWindow(String s, int k) {
         int stringLength = s.length();
         int lengthOfMaxSubstring = 0; // This will hold the length of the longest substring found
         int start = 0; // This will be the starting index of our sliding window
