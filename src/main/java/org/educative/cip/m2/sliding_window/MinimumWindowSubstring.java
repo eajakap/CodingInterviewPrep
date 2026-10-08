@@ -62,17 +62,17 @@ public class MinimumWindowSubstring {
         }
 
         // Maps to store the required character counts and the current window's character counts
-        Map<Character, Integer> reqCount = new HashMap<>();
-        Map<Character, Integer> window = new HashMap<>();
+        Map<Character, Integer> tFreqCountMap = new HashMap<>();
+        Map<Character, Integer> windowMap = new HashMap<>();
 
-        // Populate `reqCount` with the character frequencies of `t`
+        // Populate `tFreqCountMap` with the character frequencies of `t`
         for (char c : t.toCharArray()) {
-            reqCount.put(c, reqCount.getOrDefault(c, 0) + 1);
+            tFreqCountMap.put(c, tFreqCountMap.getOrDefault(c, 0) + 1);
         }
 
         // Variables to track the number of characters that match the required frequencies
         int current = 0; // Count of characters in the current window that meet the required frequency
-        int required = reqCount.size(); // Total number of unique characters in `t`
+        int required = tFreqCountMap.size(); // Total number of unique characters in `t`
 
         // Result variables to track the best window
         int[] res = {-1, -1}; // Stores the start and end indices of the minimum window
@@ -81,13 +81,13 @@ public class MinimumWindowSubstring {
         // Sliding window pointers
         int left = 0; // Left pointer of the window
         for (int right = 0; right < s.length(); right++) {
-            char c = s.charAt(right);
+            char rightChar = s.charAt(right);
 
-            // If `c` is in `t`, update the window count
-            if (reqCount.containsKey(c)) {
-                window.put(c, window.getOrDefault(c, 0) + 1);
-                // If the frequency of `c` in the window matches the required frequency, update `current`
-                if (window.get(c).equals(reqCount.get(c))) {
+            // If `rightChar` is in `tFreqCountMap`, update the window count
+            if (tFreqCountMap.containsKey(rightChar)) {
+                windowMap.put(rightChar, windowMap.getOrDefault(rightChar, 0) + 1);
+                // If the frequency of `rightChar` in the window matches the required frequency, update `current`
+                if (windowMap.get(rightChar).equals(tFreqCountMap.get(rightChar))) {
                     current++;
                 }
             }
@@ -104,11 +104,11 @@ public class MinimumWindowSubstring {
 
                 // Shrink the window from the left
                 char leftChar = s.charAt(left);
-                if (reqCount.containsKey(leftChar)) {
+                if (tFreqCountMap.containsKey(leftChar)) {
                     // Decrement the count of `leftChar` in the window
-                    window.put(leftChar, window.get(leftChar) - 1);
+                    windowMap.put(leftChar, windowMap.get(leftChar) - 1);
                     // If the frequency of `leftChar` in the window is less than required, update `current`
-                    if (window.get(leftChar) < reqCount.get(leftChar)) {
+                    if (windowMap.get(leftChar) < tFreqCountMap.get(leftChar)) {
                         current--;
                     }
                 }
