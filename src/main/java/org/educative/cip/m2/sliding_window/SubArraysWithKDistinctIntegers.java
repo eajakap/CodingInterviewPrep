@@ -43,6 +43,7 @@ public class SubArraysWithKDistinctIntegers {
         Map<Integer, Integer> freq = new HashMap<>();
         int left = 0;
         int count = 0;
+        System.out.println("\tatMostKDistinct:: nums: " + Arrays.toString(nums) + ", k: " + k);
 
         for (int right = 0; right < nums.length; right++) {
             // count the frequency of the current number
@@ -60,7 +61,7 @@ public class SubArraysWithKDistinctIntegers {
             // Count the number of subarrays with at most k distinct integers
             count += right - left + 1;
         }
-
+        System.out.println("\tatMostKDistinct:: nums: " + Arrays.toString(nums) + ", k: " + k + ", count: " + count);
         return count;
     }
 
@@ -73,6 +74,7 @@ public class SubArraysWithKDistinctIntegers {
         int count = 0;
         int left = 0;
         Map<Integer, Integer> freq = new HashMap<>();
+        System.out.println("\tatMostK:: nums: " + Arrays.toString(nums) + ", k: " + k);
 
         for (int right = 0; right < nums.length; right++) {
             freq.put(nums[right], freq.getOrDefault(nums[right], 0) + 1);
@@ -89,7 +91,7 @@ public class SubArraysWithKDistinctIntegers {
             }
             count += right - left + 1;
         }
-
+        System.out.println("\tatMostK:: nums: " + Arrays.toString(nums) + ", k: " + k + ", count: " + count);
         return count;
     }
 
@@ -107,15 +109,18 @@ public class SubArraysWithKDistinctIntegers {
 
 
         for (int i = 0; i < testCases.length; i++) {
-            int result = subarraysWithKDistinct(testCases[i], ks[i]);
             System.out.println((i + 1) + ".\tnums: " + Arrays.toString(testCases[i]) + ", k: " + ks[i]);
+            int result = subarraysWithKDistinct(testCases[i], ks[i]);
             System.out.println("\tresult: " + result);
             System.out.println(new String(new char[100]).replace('\0', '-'));
-            int resultV2 = subarraysWithKDistinctV2(testCases[i], ks[i]);
+        }
+
+        for (int i = 0; i < testCases.length; i++) {
             System.out.println((i + 1) + ".\tnums: " + Arrays.toString(testCases[i]) + ", k: " + ks[i]);
+            int resultV2 = subarraysWithKDistinctV2(testCases[i], ks[i]);
             System.out.println("\tresultV2: " + resultV2);
             System.out.println(new String(new char[100]).replace('\0', '-'));
-
         }
+
     }
 }
