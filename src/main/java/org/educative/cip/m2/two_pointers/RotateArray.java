@@ -65,11 +65,11 @@ public class RotateArray {
         if (k == 0) return;
         // set cases where k is greater than n - ensures that we don't rotate more than necessary steps
         k = k % n;
-        // reverse the entire array
+        // step-1: reverse the entire array
         reverse(nums, 0, n - 1);
-        // reverse the first k elements
+        // step-2: reverse the first k elements
         reverse(nums, 0, k - 1);
-        // reverse the remaining n-k elements
+        // step-3: reverse the remaining n-k elements
         reverse(nums, k, n - 1);
     }
 
