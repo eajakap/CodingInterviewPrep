@@ -29,16 +29,19 @@ public class RepeatedDnaSequence {
         int left = 0;
         int right = slidingWindow - 1;
         HashMap<String,Integer> freqMap = new HashMap<>();
+        List<String> result = new ArrayList<>();
         StringBuilder sb = new StringBuilder("\tSliding Window SubStrings: ");
         while (left <= right && right < s.length()) {
             String substring = s.substring(left, right + 1);
             sb.append(substring).append(", ");
             freqMap.put(substring, freqMap.getOrDefault(substring, 0) + 1);
+            if (freqMap.get(substring) == 2) {
+                result.add(substring);
+            }
             left++; // Move the left pointer to the right for the next sliding window - substring
             right++; // Move the right pointer to the right for the next sliding window - substring
         }
         System.out.println(sb.toString());
-        List<String> result = freqMap.keySet().stream().filter(key -> freqMap.get(key) > 1).toList();
         return result;
     }
 
