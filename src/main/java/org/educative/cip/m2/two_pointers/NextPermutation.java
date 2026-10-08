@@ -79,7 +79,11 @@ public class NextPermutation {
         int pivot = pivotIndex(nums); // start from the second last element
 
         // If no pivot exists, the digits are in descending order and no larger permutation is possible.
-        if (pivot < 0) return;
+        if (pivot < 0) {
+            // reverse entire array (highest permutation → lowest)
+            reverse(nums, 0, length - 1);
+            return;
+        }
 
         // If such an element is found, find the first element that is larger
         // than it from the end
@@ -104,11 +108,15 @@ public class NextPermutation {
         }
 
         // If no pivot exists, the digits are in descending order and no larger permutation is possible.
-        if (pivot < 0) return;
+        if (pivot < 0) {
+            // reverse entire array (highest permutation → lowest)
+            reverse(nums, 0, length - 1);
+            return;
+        }
 
         // If such an element is found, find the first element that is larger
         // than it from the end
-        int swapIdx = nums.length - 1;
+        int swapIdx = length - 1;
         while (nums[swapIdx] <= nums[pivot]) {
             swapIdx--;
         }
