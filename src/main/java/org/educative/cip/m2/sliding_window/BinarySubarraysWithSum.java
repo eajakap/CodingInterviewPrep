@@ -129,6 +129,7 @@ public class BinarySubarraysWithSum {
             }
             // Increment the count by the number of prefix zeros plus one
             if (left <= right && currentSum == goal) {
+                // windows with leading zeros can form valid subarrays + the current window itself
                 totalCount += prefixZeros + 1;
             }
             // Expand the window by moving the right pointer
