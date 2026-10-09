@@ -92,22 +92,38 @@ public class PermutationInString {
         return true;
     }
 
+    /**
+     * Checks if s2 contains a permutation of s1 using HashMap for frequency counting.
+     * Algorithm: Sliding Window with HashMap
+     * Steps:
+     * 1. Create two HashMaps to count the frequency of characters in s1 and the current window of s2.
+     * 2. Populate the frequency maps for s1 and the first window of s2 (of size equal to s1).
+     * 3. Slide the window over s2, updating the frequency map for s2 by adding the new character
+     *    and removing the old character from the window.
+     * 4. After each update, compare the two frequency maps. If they match, return true.
+     * 5. If no match is found after sliding through s2, return false.
+     * Time Complexity: O(n), where n is the length of s2. We traverse through s2 once.
+     * Space Complexity: O(1), as we use HashMaps that can contain at most 26 entries (for each letter of the alphabet).
+     * @param s1 the string for which we want to find a permutation
+     * @param s2 the string in which we are searching for a permutation of s1
+     * @return true if s2 contains a permutation of s1, false otherwise
+     */
     public static boolean checkInclusionSwHashMap(String s1, String s2) {
         if (s1.length() > s2.length()) {
             return false;
         }
-        Map<Character, Integer> s1Count = new HashMap<>();
-        Map<Character, Integer> s2Count = new HashMap<>();
+        Map<Character, Integer> s1CountMap = new HashMap<>();
+        Map<Character, Integer> s2CountMap = new HashMap<>();
         // Populate the frequency maps for s1 and the first window of s2 -
         // check if s1 is a permutation of s2 (i.e. appears in s2 as a substring)
         for (int i = 0; i < s1.length(); i++) {
-            s1Count.put(s1.charAt(i), s1Count.getOrDefault(s1.charAt(i), 0) + 1);
-            s2Count.put(s2.charAt(i), s2Count.getOrDefault(s2.charAt(i), 0) + 1);
+            s1CountMap.put(s1.charAt(i), s1CountMap.getOrDefault(s1.charAt(i), 0) + 1);
+            s2CountMap.put(s2.charAt(i), s2CountMap.getOrDefault(s2.charAt(i), 0) + 1);
         }
 
         // Traverse through s2, sliding the window and updating the frequency map for s2
         for (int i = 0; i < s2.length() - s1.length(); i++) {
-            if (s1Count.equals(s2Count)) {
+            if (s1CountMap.equals(s2CountMap)) {
                 // If the frequency maps match, return true,
                 // indicating that s2 contains a permutation of s1
                 return true;
@@ -116,14 +132,14 @@ public class PermutationInString {
             char rightChar = s2.charAt(i + s1.length());
             // expand the window by adding the new character (rightChar) and removing the old character (leftChar)
             // Update the frequency map for s2 by adding the new character and removing the old character
-            s2Count.put(rightChar, s2Count.getOrDefault(rightChar, 0) + 1);
-            s2Count.put(leftChar, s2Count.get(leftChar) - 1);
-            if (s2Count.get(leftChar) == 0) {
-                s2Count.remove(leftChar);
+            s2CountMap.put(rightChar, s2CountMap.getOrDefault(rightChar, 0) + 1);
+            s2CountMap.put(leftChar, s2CountMap.get(leftChar) - 1);
+            if (s2CountMap.get(leftChar) == 0) {
+                s2CountMap.remove(leftChar);
             }
         }
         // The loop stops before checking the final window
-        return s1Count.equals(s2Count);
+        return s1CountMap.equals(s2CountMap);
     }
 
     public static boolean checkInclusion(String s1, String s2, SolutionApproach approach) {
