@@ -2,13 +2,31 @@ package org.educative.cip.m2.merge_intervals;
 import java.util.*;
 
 /*
+ * Problem:
+ * Given two sorted lists of closed intervals, each list of intervals is pairwise disjoint and in sorted order.
+ * Return the intersection of these two interval lists.
  * Time Complexity: O(n + m) - We traverse both interval lists once to find the intersections.
  * Space Complexity: O(k) - We use a list to store the intersecting intervals, where k is the number of intersections.
  */
 public class IntervalListIntersection {
 
-    class Solution {
+    static class Solution {
 
+        /**
+         * Finds the intersection of two lists of closed intervals.
+         * Steps:
+         * 1. Initialize two pointers, i and j, to traverse the two interval lists.
+         * 2. For each pair of intervals, check if they intersect by comparing their start and end points.
+         * 3. If they intersect, add the intersection to the result list.
+         * 4. Move the pointer of the interval that ends first to the next interval in its list.
+         * 5. Repeat until one of the lists is fully traversed.
+         * Time Complexity: O(n + m) - We traverse both interval lists once to find the intersections.
+         * Space Complexity: O(k) - We use a list to store the intersecting intervals, where k is the number of intersections.
+         *
+         * @param intervalLista A 2D array representing the first list of closed intervals.
+         * @param intervalListb A 2D array representing the second list of closed intervals.
+         * @return A 2D array representing the intersecting intervals between the two lists.
+         */
         public static int[][] intervalsIntersection(int[][] intervalLista, int[][] intervalListb) {
             List<int[]> intersections = new ArrayList<>(); // to store all intersecting intervals
             // index "i" to iterate over the length of list a and index "j"
@@ -17,8 +35,8 @@ public class IntervalListIntersection {
             // while loop will break whenever either of the lists ends
             while (i < intervalLista.length && j < intervalListb.length) {
                 // Let's check if intervalLista[i] intersects intervalListb[j]
-                // 1. start - the potential startpoint of the intersection
-                // 2. end - the potential endpoint of the intersection
+                // 1. start - the potential startpoint of the intersection - late startpoint of the two intervals
+                // 2. end - the potential endpoint of the intersection - early endpoint of the two intervals
                 int start = Math.max(intervalLista[i][0], intervalListb[j][0]);
                 int end = Math.min(intervalLista[i][1], intervalListb[j][1]);
 
