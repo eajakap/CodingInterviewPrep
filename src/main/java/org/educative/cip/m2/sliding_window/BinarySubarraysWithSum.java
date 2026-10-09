@@ -167,26 +167,24 @@ public class BinarySubarraysWithSum {
 
     public static void main(String[] args) {
         BinarySubarraysWithSum sol = new BinarySubarraysWithSum();
-
-        int[][] arrays = {
-                {0,1,0,1,0,1},
-                {1,0,1,0,1},
-                {0,0,0,0,0},
-                {1,1,1},
-                {1}
+        // Binary Arrays and their corresponding goals
+        int[][][] arrays = {
+                {{0,1,0,1,0,1}, {2}},
+                {{1,0,1,0,1}, {0}},
+                {{0,0,0,0,0}, {2}},
+                {{1,1,1}, {2}},
+                {{1},{1}}
         };
 
-        int[] goals = {2, 0, 2, 2, 1};
-
         for (int i = 0; i < arrays.length; i++) {
-            System.out.println((i+1) + ".\tnums: " + java.util.Arrays.toString(arrays[i]));
-            System.out.println("\tgoal: " + goals[i]);
-            int res = sol.numSubarraysWithSum(arrays[i], goals[i], SolutionType.PREFIX_SUM);
-            System.out.println("\tNumber of subarrays with sum (PREFIX_SUM) = " + goals[i] + " are " + res + ".");
-            int res2 = sol.numSubarraysWithSum(arrays[i], goals[i], SolutionType.SLIDING_WINDOW);
-            System.out.println("\tNumber of subarrays with sum (SLIDING_WINDOW) = " + goals[i] + " are " + res2 + ".");
-            int res3 = sol.numSubarraysWithSum(arrays[i], goals[i], SolutionType.BRUTE_FORCE);
-            System.out.println("\tNumber of subarrays with sum (BRUTE_FORCE) = " + goals[i] + " are " + res3 + ".");
+            System.out.println((i+1) + ".\tnums: " + java.util.Arrays.toString(arrays[i][0]));
+            System.out.println("\tgoal: " + arrays[i][1][0]);
+            int res = sol.numSubarraysWithSum(arrays[i][0], arrays[i][1][0], SolutionType.PREFIX_SUM);
+            System.out.println("\tNumber of subarrays with sum (PREFIX_SUM) = " + arrays[i][1][0] + " are " + res + ".");
+            int res2 = sol.numSubarraysWithSum(arrays[i][0], arrays[i][1][0], SolutionType.SLIDING_WINDOW);
+            System.out.println("\tNumber of subarrays with sum (SLIDING_WINDOW) = " + arrays[i][1][0] + " are " + res2 + ".");
+            int res3 = sol.numSubarraysWithSum(arrays[i][0], arrays[i][1][0], SolutionType.BRUTE_FORCE);
+            System.out.println("\tNumber of subarrays with sum (BRUTE_FORCE) = " + arrays[i][1][0] + " are " + res3 + ".");
             System.out.println("-".repeat(100));
         }
     }
