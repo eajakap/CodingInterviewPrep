@@ -2,7 +2,6 @@ package org.educative.cip.m2.two_pointers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /*
@@ -49,14 +48,13 @@ public class CountFairPairs {
         testCases.add(new Object[]{new int[]{4, 4, 4, 4, 4}, 8, 8});
         testCases.add(new Object[]{new int[]{-5, -1, -2, 6, 9, 0}, -3, 4});
         testCases.add(new Object[]{new int[]{1000000000, -1000000000, 0, 1, -1}, -1, 1});
-        CountFairPairs sol = new CountFairPairs();
         for (int i = 0; i < testCases.size(); i++) {
             Object[] tc = testCases.get(i);
             int[] nums = (int[]) tc[0];
             int lower = (int) tc[1];
             int upper = (int) tc[2];
             int[] numsForPrint = Arrays.copyOf(nums, nums.length);
-            long result = sol.countFairPairs(nums, lower, upper);
+            long result = CountFairPairs.countFairPairs(nums, lower, upper);
             System.out.println((i + 1) + ".\tInput array: " + Arrays.toString(numsForPrint));
             System.out.println("\tTarget: " + lower + ", " + upper);
             System.out.println("\tResult: " + result);

@@ -1,5 +1,8 @@
 package org.educative.cip.m2.sliding_window;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
  * Permutation in String
  * Problem: Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
@@ -27,7 +30,10 @@ package org.educative.cip.m2.sliding_window;
  * Space Complexity: O(1), as we use fixed-size arrays of size 26 for the frequency counts.
 */
 public class PermutationInString {
-    public static final int ALPHABET_SIZE = 26;
+    private enum SolutionApproach {
+        SW_ARRAY, SW_HASHMAP
+    }
+    private static final int ALPHABET_SIZE = 26;
 
     /**
      * Checks if s2 contains a permutation of s1.
@@ -36,7 +42,7 @@ public class PermutationInString {
      * @param s2 the string in which we are searching for a permutation of s1
      * @return true if s2 contains a permutation of s1, false otherwise
      */
-    public static boolean checkInclusion(String s1, String s2) {
+    public static boolean checkInclusionSwArray(String s1, String s2) {
         // If s1 is longer than s2, s2 cannot contain a permutation of s1
         if (s1.length() > s2.length()) {
             return false;
@@ -86,6 +92,51 @@ public class PermutationInString {
         return true;
     }
 
+    public static boolean checkInclusionSwHashMap(String s1, String s2) {
+        if (s1.length() > s2.length()) {
+            return false;
+        }
+        Map<Character, Integer> s1Count = new HashMap<>();
+        Map<Character, Integer> s2Count = new HashMap<>();
+        // Populate the frequency maps for s1 and the first window of s2 -
+        // check if s1 is a permutation of s2 (i.e. appears in s2 as a substring)
+        for (int i = 0; i < s1.length(); i++) {
+            s1Count.put(s1.charAt(i), s1Count.getOrDefault(s1.charAt(i), 0) + 1);
+            s2Count.put(s2.charAt(i), s2Count.getOrDefault(s2.charAt(i), 0) + 1);
+        }
+
+        // Traverse through s2, sliding the window and updating the frequency map for s2
+        for (int i = 0; i < s2.length() - s1.length(); i++) {
+            if (s1Count.equals(s2Count)) {
+                // If the frequency maps match, return true,
+                // indicating that s2 contains a permutation of s1
+                return true;
+            }
+            char leftChar = s2.charAt(i);
+            char rightChar = s2.charAt(i + s1.length());
+            // expand the window by adding the new character (rightChar) and removing the old character (leftChar)
+            // Update the frequency map for s2 by adding the new character and removing the old character
+            s2Count.put(rightChar, s2Count.getOrDefault(rightChar, 0) + 1);
+            s2Count.put(leftChar, s2Count.get(leftChar) - 1);
+            if (s2Count.get(leftChar) == 0) {
+                s2Count.remove(leftChar);
+            }
+        }
+        // The loop stops before checking the final window
+        return s1Count.equals(s2Count);
+    }
+
+    public static boolean checkInclusion(String s1, String s2, SolutionApproach approach) {
+        switch(approach) {
+            case SW_ARRAY:
+                return checkInclusionSwArray(s1, s2);
+            case SW_HASHMAP:
+                return checkInclusionSwHashMap(s1, s2);
+            default:
+                throw new IllegalArgumentException("Invalid approach: " + approach);
+        }
+    }
+
     // Driver code
     public static void main(String[] args) {
         String[][] testCases = new String[][]{
@@ -99,13 +150,22 @@ public class PermutationInString {
         int i = 1;
         for (String[] tc : testCases) {
             String s1 = tc[0], s2 = tc[1];
-            boolean result = checkInclusion(s1, s2);
-
             System.out.println(i++ + ".\ts1 = \"" + s1 + "\"");
+            boolean result = checkInclusion(s1, s2, SolutionApproach.SW_ARRAY);
             System.out.println("\ts2 = \"" + s2 + "\"");
             System.out.println("\n\tOutput: " + result);
             System.out.println("-".repeat(100));
         }
+        // HashMap approach
+        for (String[] tc : testCases) {
+            String s1 = tc[0], s2 = tc[1];
+            System.out.println(i++ + ".\ts1 = \"" + s1 + "\"");
+            boolean result = checkInclusion(s1, s2, SolutionApproach.SW_HASHMAP);
+            System.out.println("\ts2 = \"" + s2 + "\"");
+            System.out.println("\n\tOutput: " + result);
+            System.out.println("-".repeat(100));
+        }
+
     }
 
 }
