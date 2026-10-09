@@ -49,7 +49,8 @@ public class CountSubArrayLessThanK {
      * 1. Initialize two pointers, left and right, to represent the current window of elements.
      * 2. Initialize a variable to keep track of the current sum of the window and a variable to store the count of valid subarrays.
      * 3. Expand the window by moving the right pointer and adding the current element to the sum.
-     * 4. While the current sum multiplied by the window size is greater than or equal to k, shrink the window by moving the left pointer and subtracting the element at the left pointer from the sum.
+     * 4. While the current sum multiplied by the window size is greater than or equal to k,
+     *    shrink the window by moving the left pointer and subtracting the element at the left pointer from the sum.
      * 5. Update the count of valid subarrays by adding the current window size (right - left + 1) to the result.
      * 6. Repeat steps 3 to 5 until the right pointer reaches the end of the array.
      * 7. Return the count of valid subarrays after traversing the entire array.
