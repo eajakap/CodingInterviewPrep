@@ -86,7 +86,7 @@ public class RemoveLinkedListElements {
     /**
      * Utility class to print the linked list.
      */
-    class PrintList{
+    static class PrintList{
         // Function to display the linked list
         public static void display(ListNode head) {
             ListNode current = head;
@@ -109,7 +109,8 @@ public class RemoveLinkedListElements {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
 
-        ListNode prev = dummy, curr = head;
+        ListNode prev = dummy;
+        ListNode curr = head;
 
         while (curr != null) {
             if (curr.val == k) {

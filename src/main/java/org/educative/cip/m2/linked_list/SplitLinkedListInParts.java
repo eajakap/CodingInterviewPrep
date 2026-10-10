@@ -140,7 +140,7 @@ public class SplitLinkedListInParts {
             // Break the link to the next part if curr is not null
             if (curr != null) {
                 ListNode nextPartHead = curr.next;
-                curr.next = null; // Break the link
+                curr.next = null; // Break the link - this is important to avoid cycles in the linked list
                 curr = nextPartHead; // Move to the head of the next part
             }
             ans[i] = partHead;

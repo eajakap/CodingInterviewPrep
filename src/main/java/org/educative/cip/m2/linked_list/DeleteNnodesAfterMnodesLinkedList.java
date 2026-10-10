@@ -132,6 +132,13 @@ public class DeleteNnodesAfterMnodesLinkedList {
         ListNode prev = dummy;
         int count = 0;
         int skipCount = 0;
+        /**
+         * Iterate through the linked list, skipping M nodes and deleting N nodes in each cycle.
+         * The loop continues until the end of the list is reached. After skipping M nodes,
+         * the next N nodes are skipped (effectively deleted) by adjusting the next pointer of
+         * the last valid node to point to the node after the skipped nodes.
+         *
+         */
         while (current != null) {
             if (count < m) {
                 prev = current;
@@ -146,6 +153,8 @@ public class DeleteNnodesAfterMnodesLinkedList {
                 skipCount = 0;
             }
         }
+        // If we still have to skipped N nodes but reached the end of the list,
+        // we need to set the next of the last valid node to null
         if (skipCount > 0) {
             prev.next = null;
         }
