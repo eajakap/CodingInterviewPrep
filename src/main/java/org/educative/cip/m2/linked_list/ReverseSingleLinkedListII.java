@@ -3,33 +3,67 @@ package org.educative.cip.m2.linked_list;
 import java.util.Arrays;
 import java.util.List;
 
-public class ReverseNodesBetween {
+/**
+ * This class provides a solution to reverse a sublist of a singly linked list between two given positions.
+ * It includes the definition of the ListNode and LinkedList classes, as well as a method to reverse the sublist.
+ *
+ * Problem: Given the head of a singly linked list and two 1-based positions left and right (left <= right),
+ * reverse the nodes from position left to position right and return the updated list.
+ * Example: [1,2,3,4,5], left = 2, right = 4 -> [1,4,3,2,5]
+ *
+ * Approach: One-pass head insertion. Walk prev to the node before position left, then repeatedly move the node
+ * after curr to the front of the sublist (right - left times).
+ *
+ * Time Complexity: O(n) - a single traversal of the list.
+ * Space Complexity: O(1) - the list is reversed in place using a few pointers.
+ */
+public class ReverseSingleLinkedListII {
+    /**
+     * Represents a single node in a singly linked list.
+     */
     static class ListNode {
         int val;
         ListNode next;
 
-        // Constructor
+        /**
+         * Creates a node with the given value and no successor.
+         *
+         * @param val the node value
+         */
         public ListNode(int val) {
             this.val = val;
             this.next = null;
         }
     }
 
+    /**
+     * Utility class for building a linked list from a collection of integer values.
+     */
     static class LinkedList {
         ListNode head;
 
-        // Default constructor
+        /**
+         * Creates an empty linked list.
+         */
         public LinkedList() {
             head = null;
         }
 
-        // Constructor to initialize from a list of values
+        /**
+         * Creates a linked list from the given values, preserving their order.
+         *
+         * @param values the values to insert into the list in order
+         */
         public LinkedList(List<Integer> values) {
             head = null;
             createLinkedList(values);
         }
 
-        // Function to create a linked list from a list of values
+        /**
+         * Builds the linked list from a list of values.
+         *
+         * @param values the values to insert into the list in order
+         */
         private void createLinkedList(List<Integer> values) {
             if (values.isEmpty()) {
                 head = null;
@@ -46,8 +80,15 @@ public class ReverseNodesBetween {
 
     }
 
+    /**
+     * Utility class for printing a linked list to standard output.
+     */
     static class PrintList{
-        // Function to display the linked list
+        /**
+         * Prints the list in arrow notation, ending with "None".
+         *
+         * @param head the head node of the list to print
+         */
         public static void display(ListNode head) {
             ListNode current = head;
             while (current != null) {
@@ -58,9 +99,19 @@ public class ReverseNodesBetween {
         }
     }
 
+    /**
+     * Holds the solution and driver code for the problem.
+     */
     static class Solution {
 
-        // Function to reverse the sublist within the linked list
+        /**
+         * Reverses the nodes of the list between positions left and right (1-based, inclusive).
+         *
+         * @param head  the head of the singly linked list
+         * @param left  the position of the first node to reverse
+         * @param right the position of the last node to reverse
+         * @return the head of the list after reversing the sublist
+         */
         public static ListNode reverseBetween(ListNode head, int left, int right) {
 
             // If the list is empty or left position is the same as right, return the original list
@@ -81,7 +132,7 @@ public class ReverseNodesBetween {
             // Current node is the node at left position
             ListNode curr = prev.next;
 
-            // Reverse the portion of the linked list between left and right positions
+            // Reverse the sublist: each pass moves the node after curr to the front of the sublist (right after prev)
             for (int i = 0; i < right - left; i++) {
                 ListNode nextNode = curr.next;
                 curr.next = nextNode.next;
@@ -93,18 +144,23 @@ public class ReverseNodesBetween {
             return dummy.next;
         }
 
-        // Driver Code
+        /**
+         * Driver code that reverses sample sublists and prints the before and after lists.
+         *
+         * @param args unused
+         */
         public static void main(String[] args) {
             List<List<Integer>> input = Arrays.asList(
                     Arrays.asList(1, 2, 3, 4, 5, 6, 7),
                     Arrays.asList(6, 9, 3, 10, 7, 4, 6),
                     Arrays.asList(6, 9, 3, 4),
                     Arrays.asList(6, 2, 3, 6, 9),
+                    Arrays.asList(3, 6, 7, 4, 2),
                     Arrays.asList(6, 2)
             );
 
-            int[] left = {1, 3, 2, 1, 1};
-            int[] right = {5, 6, 4, 3, 2};
+            int[] left = {1, 3, 2, 1, 2, 1};
+            int[] right = {5, 6, 4, 3, 4, 2};
             for(int i=0; i<input.size(); i++){
                 System.out.print(i+1);
                 LinkedList list = new LinkedList(input.get(i));
