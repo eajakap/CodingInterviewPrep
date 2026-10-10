@@ -4,13 +4,32 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-/*
+/**
+ * Count Days Without Meetings
+ * Problem: Given the total number of working days (numbered 1 to days) and a list of inclusive
+ * meeting intervals [start, end], return the number of days on which no meeting is scheduled.
+ * Meetings may overlap.
+ *
+ * Approach: Sort the meetings by start time, merge overlapping intervals while scanning,
+ * sum the days covered by the merged intervals, and subtract that from the total days.
+ *
  * Time Complexity: O(n log n) - We sort the meetings based on their start time, which takes O(n log n) time.
- * Space Complexity: O(1) - We use a constant amount of space for variables.
+ * Space Complexity: O(1) - We use a constant amount of space for variables (ignoring the sort).
  */
 public class CountDaysWithoutMeetings {
 
+    /**
+     * Holds the solution and driver code for the problem.
+     */
     static class Solution {
+        /**
+         * Counts the days on which the employee has no meetings.
+         * Note: the meetings array is sorted in place by start time, and it must contain at least one meeting.
+         *
+         * @param days     the total number of days available
+         * @param meetings inclusive meeting intervals as {@code [start, end]} pairs, possibly overlapping
+         * @return the number of days with no meeting scheduled
+         */
         public int countDays(int days, int[][] meetings) {
             // Sort the meetings based on their start time to process them in order - O(n log n)
             Arrays.sort(meetings, Comparator.comparingInt(a -> a[0]));
@@ -23,7 +42,7 @@ public class CountDaysWithoutMeetings {
 
             // Iterate through the remaining meetings
             for (int i = 1; i < meetings.length; i++) {
-                // If a meeting overlaps with the current merged meeting
+                // If a current meeting overlaps with the previous meeting
                 if (meetings[i][0] <= end) {
                     // Extend the end time to merge it
                     end = Math.max(end, meetings[i][1]);
@@ -44,7 +63,11 @@ public class CountDaysWithoutMeetings {
             return days - occupied;
         }
 
-        // Driver code
+        /**
+         * Driver code that runs sample inputs through {@link #countDays(int, int[][])} and prints the results.
+         *
+         * @param args unused
+         */
         public static void main(String[] args) {
             int[] inputDays = {12, 6, 100000, 3136, 786};
             int[][][] inputMeetings = {
@@ -65,6 +88,11 @@ public class CountDaysWithoutMeetings {
             }
         }
     }
+    /**
+     * Entry point that delegates to {@link Solution#main(String[])}.
+     *
+     * @param args unused
+     */
     public static void main(String[] args) {
         Solution.main(args);
     }

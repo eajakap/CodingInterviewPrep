@@ -35,17 +35,14 @@ import java.util.List;
 public class CarPooling {
 
     public enum SolutionApproach {
-        PREFIX_SUM,
-        MERGE_INTERVALS
+        SWEEP_LINE, DIFF_ARRAY_PREFIX_SUM
     }
 
     public boolean carPooling(int[][] trips, int capacity, SolutionApproach approach) {
         switch (approach) {
-            case PREFIX_SUM:
+            case DIFF_ARRAY_PREFIX_SUM:
+            case SWEEP_LINE:
                 return carPoolingPrefixSum(trips, capacity);
-            case MERGE_INTERVALS:
-                // Implement the merge intervals approach here
-                return false;
             default:
                 throw new IllegalArgumentException("Invalid solution approach");
         }
@@ -107,7 +104,7 @@ public class CarPooling {
             }
             System.out.println("], capacity = " + capacity);
             CarPooling obj = new CarPooling();
-            boolean result = obj.carPooling(trips, capacity, SolutionApproach.PREFIX_SUM);
+            boolean result = obj.carPooling(trips, capacity, SolutionApproach.SWEEP_LINE);
             System.out.println("\tCan complete all trips? " + result);
             System.out.println(new String(new char[100]).replace("\0", "-"));
             i++;
