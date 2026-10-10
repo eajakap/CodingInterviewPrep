@@ -135,18 +135,6 @@ public class SwapNodesInPairs {
                 int temp = firstNode.val;
                 firstNode.val = secondNode.val;
                 secondNode.val = temp;
-//                firstNode.next = secondNode.next;
-//                secondNode.next = firstNode;
-//                if (current == head) {
-//                    head = secondNode; // Update head to the new first node after swap
-//                } else {
-//                    // Link the previous pair's second node to the new first node after swap
-//                    ListNode prev = head;
-//                    while (prev.next != firstNode) {
-//                        prev = prev.next;
-//                    }
-//                    prev.next = secondNode;
-//                }
                 // Move to the next pair
                 current = secondNode.next;
             }
