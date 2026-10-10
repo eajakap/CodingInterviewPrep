@@ -24,11 +24,22 @@ import java.util.PriorityQueue;
  * 0 <= start < end <= 10^6
  */
 public class MeetingRoomsII {
+    /**
+     * Available strategies for computing the minimum number of meeting rooms.
+     */
     public enum SolutionApproach {
         SORT_AND_HEAP,
         SORT_AND_ARRAYS
     }
 
+    /**
+     * Approach 1: Using a Min Heap (Priority Queue)
+     * Time Complexity: O(n log n) - Sorting the intervals takes O(n log n) and adding/removing from the heap takes O(log n).
+     * Space Complexity: O(n) - In the worst case, all meetings overlap and we need to store all end times in the heap.
+     *
+     * @param intervals meeting intervals as {@code [start, end)} pairs; sorted in place by start time
+     * @return the minimum number of rooms required, or 0 if there are no meetings
+     */
     private static int findSetsUsingHeap(int[][] intervals) {
         if (intervals == null || intervals.length == 0) {
             return 0;
@@ -56,6 +67,14 @@ public class MeetingRoomsII {
         return minHeap.size();
     }
 
+    /**
+     * Approach 2: Using Two Pointers and Sorted Arrays
+     * Time Complexity: O(n log n) - Sorting the start and end times takes O(n log n).
+     * Space Complexity: O(n) - We need to store the start and end times in separate arrays.
+     *
+     * @param intervals meeting intervals as {@code [start, end)} pairs; not modified
+     * @return the minimum number of rooms required, or 0 if there are no meetings
+     */
     private static int findSetsUsingArrays(int[][] intervals) {
         if (intervals == null || intervals.length == 0) {
             return 0;
@@ -64,32 +83,41 @@ public class MeetingRoomsII {
         int n = intervals.length;
         int[] startIntervals = new int[n];
         int[] endIntervals = new int[n];
-
+        // populate the start and end times
         for (int i = 0; i < n; i++) {
             startIntervals[i] = intervals[i][0];
             endIntervals[i] = intervals[i][1];
         }
-
+        // sort the start and end times
         Arrays.sort(startIntervals);
         Arrays.sort(endIntervals);
-
+        // two pointers to traverse the start and end times
         int rooms = 0;
         int endPtr = 0;
-
+        // iterate through the start times
         for (int startPtr = 0; startPtr < n; startPtr++) {
             // If the current meeting starts before the earliest ending meeting ends,
             // we need a new room.
             if (startIntervals[startPtr] < endIntervals[endPtr]) {
+                // A new meeting has started before the earliest meeting ended → need a new room.
                 rooms++;
             } else {
                 // Otherwise, one meeting ended → free a room.
                 endPtr++;
             }
         }
-
+        // The number of rooms needed is the maximum number of overlapping meetings at any point in time.
         return rooms;
     }
 
+    /**
+     * Finds the minimum number of conference rooms needed to hold all meetings.
+     *
+     * @param intervals meeting intervals as {@code [start, end)} pairs
+     * @param approach  the strategy to use; defaults to the heap approach unless
+     *                  {@link SolutionApproach#SORT_AND_ARRAYS} is given
+     * @return the minimum number of rooms required, or 0 if there are no meetings
+     */
     public static int findSets(int[][] intervals, SolutionApproach approach) {
         if (approach == SolutionApproach.SORT_AND_ARRAYS) {
             return findSetsUsingArrays(intervals);
@@ -97,6 +125,11 @@ public class MeetingRoomsII {
         return findSetsUsingHeap(intervals);
     }
 
+    /**
+     * Driver code that runs both approaches on sample meeting schedules and prints the results.
+     *
+     * @param args unused
+     */
     public static void main(String[] args) {
         int[][][] scheduleMeetings = {
                 {{0, 10}, {2, 10}, {11, 30}},
