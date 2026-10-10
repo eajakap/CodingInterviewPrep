@@ -2,8 +2,29 @@ package org.educative.cip.m2.merge_intervals;
 
 import java.util.*;
 
+/**
+ * Given a list of employees, each employee has a list of non-overlapping intervals representing the times when they are busy.
+ * Return a list of finite intervals representing the times when all employees are free.
+ *
+ * Example 1:
+ * Input: schedule = [[[1,2],[5,6]],[[1,3]],[[4,10]]]
+ * Output: [[3,4]]
+ * Explanation: There are a total of three employees, and all common free time intervals would be [-inf, 1], [3, 4], [10, inf].
+ * We discard any intervals that contain inf as they aren't finite.
+ *
+ * Example 2:
+ * Input: schedule = [[[1,3],[6,7]],[[2,4]],[[2,5],[9,12]]]
+ * Output: [[5,6],[7,9]]
+ *
+ * Constraints:
+ * 1 <= schedule.length , schedule[i].length <= 50
+ * 0 <= schedule[i][j].start < schedule[i][j].end <= 10^8
+ */
 public class EmployeeFreeTime {
 
+    /**
+     * Definition for an interval.
+     */
     static class Interval{
         int start;
         int end;
@@ -25,6 +46,27 @@ public class EmployeeFreeTime {
 
     static class Solution {
 
+        /**
+         * Finds the common free time intervals for all employees.
+         * Steps:
+         * 1. Create a min-heap to store the start of each interval along with its index value and a value 0.
+         * 2. Iterate for all employees' schedules
+         *    and add start of each schedule's first interval along with its index value and a value 0.
+         * 3. Take an empty list to store results.
+         * 4. Set 'previous' to the start time of the first interval in heap.
+         * 5. Iterate until the heap is empty
+         *    a. Poll an element from the heap and get values of i and j
+         *    b. Select an interval
+         *    c. If the selected interval's start value is greater than the previous value,
+         *       it means that this interval is free. So, add this interval (previous, interval's end value) into the result.
+         *    d. Update the previous as the maximum of previous and interval's end value.
+         *    e. If there is another interval in the current employee's schedule, push that into the heap.
+         * 6. When the heap is empty, return the result.
+         * Time Complexity: O(NlogK), where N is the total number of intervals and K is the number of employees.
+         * Space Complexity: O(K), where K is the number of employees.
+         * @param schedule: a list of employees, each employee has a list of non-overlapping intervals representing the times when they are busy.
+         * @return: a list of finite intervals representing the times when all employees are free.
+         */
         public static List<Interval> employeeFreeTime(List<List<Interval>> schedule) {
             // Create a min-heap to store the start of each interval along with
             // its index value and a value 0.
