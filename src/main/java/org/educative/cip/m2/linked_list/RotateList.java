@@ -121,6 +121,7 @@ public class RotateList {
         // Compute the length of the list
         int length = 1;
         ListNode tail = head;
+        // Head - already counted, so start length at 1
         while (tail.next != null) {
             tail = tail.next;
             length++;
@@ -130,7 +131,9 @@ public class RotateList {
         tail.next = head;
 
         // Find the new head and tail
-        k = k % length;
+        k = k % length; // normalize k to avoid unnecessary full rotations (k > total nodes)
+        if (k == 0) return head;
+
         int stepsToNewHead = length - k;
         ListNode newTail = tail;
         // Move to the new tail position
@@ -178,7 +181,9 @@ public class RotateList {
 
         // Find the new head and tail
         k = k % length;
-        int stepsToNewHead = k;
+        if (k == 0) return head;
+
+        int stepsToNewHead = k; // For left rotation, we move k steps from the head to find the new head
         ListNode newTail = tail;
         while (stepsToNewHead-- > 0) {
             newTail = newTail.next;

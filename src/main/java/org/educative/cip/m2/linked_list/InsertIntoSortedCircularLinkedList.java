@@ -141,6 +141,7 @@ public class InsertIntoSortedCircularLinkedList {
      */
     public Node insert(Node head, int insertVal)
     {
+        // Case 1: Empty list - create a single-node circular list
         if (head == null) {
             Node newNode = new Node(insertVal);
             newNode.next = newNode;  // Make it circular
@@ -152,10 +153,13 @@ public class InsertIntoSortedCircularLinkedList {
         boolean flag = false;
 
         while (true) {
+            // Case 1: Insert between two sorted nodes (normal case)
             if (prev.val <= insertVal && insertVal <= curr.val) {
                 flag = true;
             }
+            // Case 2: At the rotation point (max -> min)
             else if (prev.val > curr.val) {
+                // InsertVal is either greater than max or smaller than min
                 if (insertVal >= prev.val || insertVal <= curr.val) {
                     flag = true;
                 }
@@ -170,7 +174,6 @@ public class InsertIntoSortedCircularLinkedList {
             curr = curr.next;
 
             if (prev == head) {
-                // If we have traversed the entire list and didn't find a suitable position
                 break;
             }
         }

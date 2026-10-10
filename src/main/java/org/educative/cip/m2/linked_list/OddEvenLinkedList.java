@@ -73,7 +73,7 @@ public class OddEvenLinkedList {
     /**
      * Utility class to print the linked list.
      */
-    class PrintList{
+    static class PrintList{
         // Function to display the linked list
         public static void display(ListNode head) {
             ListNode current = head;
