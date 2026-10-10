@@ -33,7 +33,7 @@ import java.util.List;
  * 1 <= capacity <= 10^5
  */
 public class CarPooling {
-
+    public static final int MAX_TRIP_LENGTH = 1001;
     public enum SolutionApproach {
         SWEEP_LINE, DIFF_ARRAY_PREFIX_SUM
     }
@@ -65,7 +65,7 @@ public class CarPooling {
      */
     public boolean carPoolingPrefixSum(int[][] trips, int capacity)
     {
-        int[] passengerCount = new int[1001]; // Array to track the number of passengers at each location
+        int[] passengerCount = new int[MAX_TRIP_LENGTH]; // Array to track the number of passengers at each location
         for (int[] trip : trips) {
             int numPassengers = trip[0];
             int startLocation = trip[1];
