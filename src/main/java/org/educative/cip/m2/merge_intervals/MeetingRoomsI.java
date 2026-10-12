@@ -47,18 +47,26 @@ public class MeetingRoomsI {
             Collections.sort(candidates);
 
             for (int t : candidates) {
-                int end = t + length;
+                int end = t + length; // the finish time of the new meeting
                 if (end > 24 * 60) break;          // past this point nothing fits in the day
                 boolean free = true;
+                // check if all employees are free during [t, end]
                 for (int[][] emp : schedules) {
+                    // check all the meetings of the current employee.
+                    // verify if the current employee is free during [t, end]
                     for (int[] m : emp) {
+                        // check if the current meeting overlaps with [t, end]
                         if (m[0] < end && t < m[1]) {
+                            // there is an overlap, so the time slot is not free
                             free = false;
                             break;
                         }
                     }
+                    // if the current employee is not free, no need to check further
                     if (!free) break;
+                    // if we reach here, it means the current employee is free during [t, end]
                 }
+                // if all employees are free, return the start time
                 if (free) return t;
             }
             return -1;
