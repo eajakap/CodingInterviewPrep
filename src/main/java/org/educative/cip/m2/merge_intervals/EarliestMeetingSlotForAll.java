@@ -57,6 +57,12 @@ public class EarliestMeetingSlotForAll {
                 return -1;
             }
 
+            // The number of employees is irrelevant to the algorithm, but it is a useful sanity check.
+            int numberOfEmployees = schedules.length;
+            if (numberOfEmployees == 0) {
+                // No employees means no meetings, so the whole day is free.
+                return -1;
+            }
             // 1. Flatten every employee's meetings into a single list of busy intervals.
             List<int[]> busy = new ArrayList<>();
             for (int[][] employee : schedules) {

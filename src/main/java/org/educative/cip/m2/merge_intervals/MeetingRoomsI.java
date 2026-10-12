@@ -41,7 +41,6 @@ public class MeetingRoomsI {
             candidates.add(0);
             for (int[][] emp : schedules) {
                 for (int[] m : emp) {
-                    //candidates.add(m[0]); // every start time
                     candidates.add(m[1]); // every finish time
                 }
             }
