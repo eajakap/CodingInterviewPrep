@@ -142,6 +142,8 @@ public class NextPermutation {
 
     public static void main(String[] args) {
         int[][] testCases = {
+                {1, 1, 2},
+                {-10, -9,-7, 0, 9, 8, 7},
                 {4, 1, 5, 2, 9, 7, 3},
                 {4, 1, 5, 2, 9, 3, 7},
                 {8, 2, 6, 4, 7, 5},
