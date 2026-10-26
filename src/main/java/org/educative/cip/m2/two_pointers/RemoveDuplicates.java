@@ -21,6 +21,22 @@ import java.util.Set;
  */
 
 public class RemoveDuplicates {
+    private static enum SolutionApproach {
+        TWO_POINTER, UNSORTED_ARRAY_SET, UNSORTED_ARRAY_TWO_POINTERS
+    }
+    public static int removeDuplicates(int[] nums, Boolean sorted, SolutionApproach approach) {
+        switch (approach) {
+            case TWO_POINTER:
+                return (sorted ? removeSortedArrayDuplicates(nums) : removeUnSortedArrayDuplicatesWithSort(nums));
+            case UNSORTED_ARRAY_SET:
+                return removeUnSortedArrayDuplicatesWithSet(nums);
+            case UNSORTED_ARRAY_TWO_POINTERS:
+                return removeUnSortedArrayDuplicates(nums);
+            default:
+                throw new IllegalArgumentException("Invalid approach specified.");
+        }
+    }
+
     public static int removeSortedArrayDuplicates(int[] nums) {
 
         // Replace this placeholder return statement with your code
@@ -79,7 +95,16 @@ public class RemoveDuplicates {
         return write;
     }
 
-    public static int removeDuplicates(int[] nums) {
+    /**
+     * Unsorted Array: O(nlogn)
+     * Sorted Array: O(n)
+     * Slow/Fast Pointer: O(n)
+     * 1. Sort the array
+     * 2. Two pointers approach
+     * @param nums
+     * @return
+     */
+    public static int removeUnSortedArrayDuplicatesWithSort(int[] nums) {
         // Step 1: Sort the array to bring duplicates together
         Arrays.sort(nums);
 
@@ -104,7 +129,7 @@ public class RemoveDuplicates {
             // because function modifies in-place
             int[] arr = Arrays.copyOf(nums, nums.length);
 
-            int k = removeSortedArrayDuplicates(arr);
+            int k = removeDuplicates(arr, true, SolutionApproach.TWO_POINTER);
 
             System.out.println("\n\tUnique Count (k): " + k);
 
@@ -114,7 +139,41 @@ public class RemoveDuplicates {
                 System.out.print(arr[i]);
             }
             System.out.println("]");
+
+            int k2 = removeDuplicates(arr, false, SolutionApproach.TWO_POINTER);
+            System.out.println("\n\tUnique Count (k2): " + k2);
+
+            System.out.print("\tArray After Removing Duplicates: [");
+            for (int i = 0; i < k2; i++) {
+                if (i > 0) System.out.print(", ");
+                System.out.print(arr[i]);
+            }
+            System.out.println("]");
+
+            int k3 = removeDuplicates(arr, false, SolutionApproach.UNSORTED_ARRAY_SET);
+
+            System.out.println("\n\tUnique Count (k3): " + k3);
+
+            System.out.print("\tArray After Removing Duplicates: [");
+            for (int i = 0; i < k3; i++) {
+                if (i > 0) System.out.print(", ");
+                System.out.print(arr[i]);
+            }
+            System.out.println("]");
+
+            int k4 = removeDuplicates(arr, false, SolutionApproach.UNSORTED_ARRAY_TWO_POINTERS);
+
+            System.out.println("\n\tUnique Count (k4): " + k4);
+
+            System.out.print("\tArray After Removing Duplicates: [");
+            for (int i = 0; i < k4; i++) {
+                if (i > 0) System.out.print(", ");
+                System.out.print(arr[i]);
+            }
+            System.out.println("]");
+
             System.out.println("----------------------------------------------------------------------------------------------------");
+
         }
     }
 
