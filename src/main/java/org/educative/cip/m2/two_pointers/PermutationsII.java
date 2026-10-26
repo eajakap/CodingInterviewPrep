@@ -90,12 +90,7 @@ public class PermutationsII {
         // Reverse the elements to get the next permutation
         // start from the element next to pivot to the end of the array
         int left = pivotIndex + 1, right = length - 1;
-        while (left < right) {
-            // swap the elements at left and right indices
-            swap(nums, left, right);
-            left++; // move left pointer to the next element
-            right--; // move right pointer to the previous element
-        }
+        reverse(nums, left, right);
         return true;
     }
 
