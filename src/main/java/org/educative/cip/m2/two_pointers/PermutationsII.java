@@ -62,7 +62,8 @@ public class PermutationsII {
     private static boolean nextPermutation(int[] nums) {
         int length = nums.length;
 
-        // Find the first element that is smaller than its next rightmost element from the end
+        // Find the first element starting from the second last element (n-2)
+        // that is smaller than its next rightmost element from the end
         int pivotIndex = length - 2; // start from the second last element
         while (pivotIndex >= 0 && nums[pivotIndex] >= nums[pivotIndex + 1]) {
             pivotIndex--;
@@ -75,23 +76,25 @@ public class PermutationsII {
             return false;
         }
 
-        // If such an element is found, find the first element that is larger
-        // than it from the end
-        int swapIdx = length - 1;
-        while (nums[swapIdx] <= nums[pivotIndex]) {
-            swapIdx--;
+        // At this point, we have found the pivot element that is smaller than its next immediate right neighbour.
+        // If such an element is found, find the first element that is larger than the
+        // pivot index element from the end (n-1).
+        int pivotSwapIdx = length - 1;
+        while (nums[pivotSwapIdx] <= nums[pivotIndex]) {
+            pivotSwapIdx--;
         }
 
-        // swap the two elements - pivot and successor
-        swap(nums, pivotIndex, swapIdx);
+        // swap the two elements - pivot Index Element and the pivot Swap Index Element
+        swap(nums, pivotIndex, pivotSwapIdx);
 
         // Reverse the elements to get the next permutation
         // start from the element next to pivot to the end of the array
         int left = pivotIndex + 1, right = length - 1;
         while (left < right) {
+            // swap the elements at left and right indices
             swap(nums, left, right);
-            left++;
-            right--;
+            left++; // move left pointer to the next element
+            right--; // move right pointer to the previous element
         }
         return true;
     }
