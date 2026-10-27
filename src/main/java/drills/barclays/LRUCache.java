@@ -131,17 +131,18 @@ public class LRUCache<K,V> {
         this.tail.prev = head;
         this.size=0;
     }
+    /** Lists entries from least to most recently used. */
     public String printLRUCache() {
-        StringBuilder sb = new StringBuilder();
-        if (cache.isEmpty()) {
-            return String.format("Cache is empty");
+        if (head.next == tail) {
+            return "Cache is empty";
         }
-        int size = cache.size(), count = 0;
-        for (Node node : cache.values()) {
-            count++;
-            sb.append(node.key).append("=")
-                    .append(node.value)
-                    .append(count != size ? "," : "");
+        StringBuilder sb = new StringBuilder();
+        // Walk from tail (LRU) to head (MRU), since addNodeToFront puts recent nodes at the head
+        for (Node node = tail.prev; node != head; node = node.prev) {
+            sb.append(node.key).append("=").append(node.value);
+            if (node.prev != head) {
+                sb.append(",");
+            }
         }
         return sb.toString();
     }
