@@ -127,8 +127,8 @@ public class LRUCache<K,V> {
 
     public void clear() {
         cache.clear();
-        this.head = null;
-        this.tail = null;
+        this.head.next = tail;
+        this.tail.prev = head;
         this.size=0;
     }
     public String printLRUCache() {
@@ -202,11 +202,14 @@ public class LRUCache<K,V> {
                 {{"1"}, {"AAPL", "150.25"}, {"MSFT", "420.10"}, {"AAPL"}, {"MSFT"}, {}, {}},
                 {{"3"}, {"AAPL", "150.25"}, {"MSFT", "420.10"}, {"GOOGL", "175.50"}, {"AAPL"}, {"TSLA", "245.00"}, {"MSFT"},
                         {"AAPL", "151.00"}, {"GOOGL"}, {"META", "500.00"}, {"TSLA"}, {"AAPL"}, {}, {}},
+                {{"3"}, {"10", "10"}, {"20", "20"}, {"30", "30"}, {"10"}, {"40", "40"}, {"20"}, {"30"}, {"40"}, {}, {}}
+
         };
 
         String[][] operations = {
                 {"LRUCache", "put", "put", "get", "get", "print", "clear"},
                 {"LRUCache", "put", "put", "put", "get", "put", "get", "put", "get", "put", "get", "get", "print", "clear"},
+                {"LRUCache", "put", "put", "put", "get", "put", "get", "get", "get", "print", "clear"}
         };
 
         int y = 1;
