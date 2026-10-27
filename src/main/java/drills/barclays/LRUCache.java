@@ -53,30 +53,30 @@ import java.util.*;
  * - Capacity is always >= 1
  * - Keys are strings, values are doubles
  */
-public class LRUCache {
-    static class Node {
-        String key;
-        double value;
+public class LRUCache<K,V> {
+    private final class Node {
+        K key;
+        V value;
         Node next;
         Node prev;
 
-        public Node(String key, double value) {
+        public Node(K key, V value) {
             this.key = key;
             this.value = value;
         }
     }
 
-    Map<String, Node> cache;
-    int capacity;
-    int size;
-    Node head;
-    Node tail;
+    private final Map<K, Node> cache;
+    private final int capacity;
+    private int size;
+    private Node head;
+    private Node tail;
 
     public LRUCache(int capacity) {
         this.cache = new HashMap<>();
         this.capacity = capacity;
-        this.head = new Node(null, 0D);
-        this.tail = new Node(null, 0D);
+        this.head = new Node(null, null);
+        this.tail = new Node(null, null);
         this.head.next = tail;
         this.tail.prev = head;
         this.size = 0;
@@ -94,17 +94,17 @@ public class LRUCache {
         node.next.prev = node.prev;
     }
 
-    public double get(String key) {
+    public V get(K key) {
         if (cache.containsKey(key)) {
             Node node = cache.get(key);
             removeNode(node);
             addNodeToFront(node);
             return node.value;
         }
-        return -1;
+        return null;
     }
 
-    public void put(String key, double value) {
+    public void put(K key, V value) {
         if (!cache.containsKey(key)){
             Node node = new Node(key, value);
             cache.put(key, node);
