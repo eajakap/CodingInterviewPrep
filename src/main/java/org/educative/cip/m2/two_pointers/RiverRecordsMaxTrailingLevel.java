@@ -43,23 +43,26 @@ public class RiverRecordsMaxTrailingLevel {
     public static int maxTrailingLevel(List<Integer> levels) {
 
         if (levels == null || levels.size() < 2) {
-            return -1; // no trailing possible
+            return -1;
         }
 
-        int minSoFar = levels.get(0);
-        int maxDiff = -1;
+        int minLevel = levels.get(0);
+        int maxDifference = -1;
 
         for (int i = 1; i < levels.size(); i++) {
-            int current = levels.get(i);
 
-            if (current > minSoFar) {
-                maxDiff = Math.max(maxDiff, current - minSoFar);
-            } else {
-                minSoFar = current;
+            int currentLevel = levels.get(i);
+
+            // Current level must be greater than an earlier level
+            if (currentLevel > minLevel) {
+                maxDifference = Math.max(maxDifference, currentLevel - minLevel);
             }
+
+            // Keep track of the smallest earlier level
+            minLevel = Math.min(minLevel, currentLevel);
         }
 
-        return maxDiff;
+        return maxDifference;
     }
 
     public static void main(String[] args) {
