@@ -1,4 +1,4 @@
-package org.educative.cip.m2.greedy_techniques.greedy;
+package org.educative.cip.m2.greedy.best_choice;
 
 import java.util.Arrays;
 
