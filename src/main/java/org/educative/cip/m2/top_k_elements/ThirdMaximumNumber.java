@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Third Maximum Number — solved with the Top K Elements pattern.
- * <p>
+ *
  * Given an integer array {@code nums}, return the third distinct maximum number in the array.
  * If the third distinct maximum does not exist, return the maximum number instead.
  */
@@ -12,13 +12,13 @@ public class ThirdMaximumNumber {
 
     /**
      * Finds the third distinct maximum value in the given array.
-     * <p>
-     * Approach: maintain a min-heap of at most 3 <em>distinct</em> values, which always holds
+     *
+     * Approach: maintain a min-heap of at most 3 distinct values, which always holds
      * the 3 largest distinct numbers seen so far. The heap's root is the smallest of those,
      * i.e. the third maximum. A companion set tracks which values are currently in the heap
      * so duplicates can be skipped in O(1).
-     * <p>
-     * Time complexity: O(n) — each heap operation is O(log 3) = O(1).<br>
+     *
+     * Time complexity: O(n) — each heap operation is O(log 3) = O(1).
      * Space complexity: O(1) — the heap and set never hold more than 3 elements.
      *
      * @param nums the input array (assumed non-empty)
