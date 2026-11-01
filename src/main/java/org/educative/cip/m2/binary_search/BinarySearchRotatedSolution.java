@@ -10,6 +10,7 @@ import java.util.Arrays;
  * return the index of the target, or -1 if it is not in the array.
  *
  * Example 1:
+ * 
  * Input: nums = [5, 6, 7, 1, 2, 3, 4], target = 1
  * Output: 3
  */
