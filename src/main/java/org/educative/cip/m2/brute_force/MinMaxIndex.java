@@ -1,4 +1,4 @@
-package org.educative.cip.m2.greedy.brute_force;
+package org.educative.cip.m2.brute_force;
 
 /**
  * This class provides methods to find the index of the maximum and minimum values in an array.

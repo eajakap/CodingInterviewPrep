@@ -217,6 +217,49 @@ public class FibonacciDPSolution {
         }
     }
 
+    static class Memoize {
+        public static int fib(int n, int lookupTable[])
+        {
+            if (lookupTable[n] == -1) { // Check if already present
+                // Adding entry to table when not present
+                if (n <= 1)
+                    lookupTable[n] = n;
+                else
+                    lookupTable[n] = fib(n - 1, lookupTable) + fib(n - 2, lookupTable);
+            }
+            return lookupTable[n];
+        }
+
+        public static void main(String args[])
+        {
+            int n = 6; // Finding the nth Fibonacci number
+            int [] lookupTable = new int[n+1];
+            Arrays.fill(lookupTable, -1); // Initializing the look up table to have -1
+            System.out.println(fib(n, lookupTable));
+        }
+    }
+
+    static class Tabulation {
+        public static int fib(int n, int[] lookupTable)
+        {
+            if (n <= 1)
+                return n;
+
+            lookupTable[0] = 0; // Set zeroth and first values
+            lookupTable[1] = 1;
+
+            for (int i = 2; i <= n; i++) {
+                lookupTable[i] = lookupTable[i-1] + lookupTable[i-2]; // Fill up the table by summing up previous two values
+            }
+            return lookupTable[n]; // Return the nth Fibonacci number
+        }
+
+        public static void main(String args[]) {
+            int n = 6;
+            int[] lookupTable = new int[n+1];
+            System.out.print(fib(n, lookupTable));
+        }
+    }
     /**
      * Driver code: runs all four Fibonacci approaches on the same inputs and prints the results,
      * so you can check that they agree.
@@ -224,8 +267,8 @@ public class FibonacciDPSolution {
      * @param args command-line arguments (unused)
      */
     public static void main(String[] args) {
-        // Expected outputs: 0, 1, 1, 5, 55, 6765
-        int[] testCases = {0, 1, 2, 5, 10, 20};
+        // Expected outputs: 0, 1, 1, 5, 8, 55, 6765
+        int[] testCases = {0, 1, 2, 5, 6, 10, 20};
 
         for (int i = 0; i < testCases.length; i++) {
             int n = testCases[i];
@@ -234,6 +277,11 @@ public class FibonacciDPSolution {
             System.out.println("\tTop-down memoization: " + TopDownDPMemoization.fib(n));
             System.out.println("\tBottom-up tabulation: " + BottomUpDPTabulation.fib(n));
             System.out.println("\tSpace-optimized:      " + SpaceOptimizedDP.fib(n));
+            int [] lookupTable = new int[n+1];
+            Arrays.fill(lookupTable, -1); // Initializing the look up table to have -1
+            System.out.println("\tMemoization:         " + Memoize.fib(n, lookupTable));
+            Arrays.fill(lookupTable, -1); // Initializing the look up table to have -1
+            System.out.println("\tTabulation:         " + Tabulation.fib(n, lookupTable));
             // Print a separator line of 100 dashes
             System.out.println("-".repeat(100));
         }
